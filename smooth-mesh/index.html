@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Smooth Mesh</title>
+  <meta name="description" content="">
+
+  <link rel="stylesheet" href="/assets/css/bundle.main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="/vendor.js"></script>
+  <script src="/bundle.js"></script>
+  <link rel="canonical" href="http://rubberguppy.com/smooth-mesh/">
+  <link rel="alternate" type="application/rss+xml" title="Rubber Guppy" href="/feed.xml">
+
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+</header>
+
+    <div class="page-body">
+      <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+          <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Smooth Mesh</h1>
+    <p class="post-meta">
+      <time datetime="2010-07-06T14:33:29+00:00" itemprop="datePublished">
+        
+        Jul 6, 2010
+      </time>
+      
+        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Jordan Hueckstaedt</span></span>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <div class="script">
+
+  <p>
+    <img src="/resources/2010/03/mesh-smoothing-logo.png" alt="Smooth Mesh" title="Smooth Mesh" class="size-full wp-image-229" style="float:left;" />
+  </p>
+
+  <p>
+    Smooth Mesh is an open source plugin deformer for Maya that averages the verticies of a polygon mesh. Smooth Mesh was written because of the deficiencies in using Maya's average verticies function with rigging. It was <i>not</i> made with modeling in mind and has some rather large drawbacks if you try to use it for that. It is the first plugin for Maya that I have ever written and should be considered extremely experimental. With that in mind, if you find any bugs, or are an experienced programmer and notice any inefficiencies or bad practices with my code I would greatly appreciate the feedback!
+  </p>
+
+  <h3>
+    Features:
+  </h3>
+
+  <ul>
+    <li>
+      Approximate volume preservation using the Tabuin method.
+    </li>
+    <li>
+      Paintable Weights
+    </li>
+    <li>
+      Envelope
+    </li>
+    <li>
+      Can iterate beyond 20 times. Take that Maya average verticies!
+    </li>
+  </ul>
+
+  <h3>
+    Limitations:
+  </h3>
+
+  <p>
+    Smooth Mesh produces unpredictable results when used to tweak mesh. As such, it shouldn't be used with modeling. I realize that this plugin could be extremely useful for modeling, so <a href="http://forums.cgsociety.org/showthread.php?f=89&#038;t=885260">I asked around on CGTalk for a solution</a>. Unfortunately, it would seem this is just a byproduct of how deformers work in Maya. Which makes me really curious how those guys at Kickstand got around this with their Stretch Mesh plugin. However, since I didn't set out to make a modeling plugin, I'm not terribly upset that I couldn't do this. If you happen to know how (and don't mind the code going open source), please let me know!
+  </p>
+
+  <h3>
+    Usage:
+  </h3>
+  <p>
+    <b>Applying the Deformer.</b> After the plugin is installed and activated select a polygon mesh you wish to apply the deformer to. Enter the mel command:
+  </p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">deformer</span> <span class="o">-</span><span class="n">type</span> <span class="n">smoothMesh</span><span class="p">;</span></code></pre></figure>
+
+
+  <p>
+    <b>Painting weights.</b> Painting Weights on the deformer can be brought up through the menu Modify &gt;&gt; Paint Attributes Tool or by right clicking and holding over the mesh and selecting the marking menu Paint &gt;&gt; Smooth Mesh &gt;&gt; SmoothMeshx-weights.
+  </p>
+
+  <p>
+    <p>
+      <b>Operation</b> Laplace is a type of mathematical function and is just your run of the mill smooth mesh operation. Taubin is the algorithm devised by Gabriel Taubin that can approximate volume preservation.
+    </p>
+
+    <p>
+      <b>Iterations</b> This is the number or iterations to smooth the mesh. The more iterations there are, the smoother the mesh and the more expensive the operation becomes.
+    </p>
+
+    <p>
+      <b>Laplace</b> This is the percentage any vertex will move along it's displacement vector towards a single Laplacian smooth iteration. If you don't know what this means, it's safest to leave it alone. At the very least, if you don't know what it does, leave it somewhere below 0.6ish since higher values can actually make your mesh unsmooth.
+    </p>
+
+    <p>
+      <b>Volume</b> This is the Taubin factor. It can be used to adjust how much volume is being added back into each iteration. To know exactly what it's doing, I suggest looking at the source code.
+    </p>
+
+    <h3>
+      Binaries Included:
+    </h3>
+
+    <p>
+      The following binaries are included in the Smooth Mesh package. It's a smattering of versions of Maya that I currently use on my projects. If you compile Smooth Mesh for a version not included, please send it to me and I'll include it.
+    </p>
+
+    <ul>
+      <li>
+        Windows
+      </li>
+      <ul>
+        <li>
+          2008
+        </li>
+        <li>
+          2009
+        </li>
+        <li>
+          2011
+        </li>
+      </ul>
+
+      <li>
+        Windows 64
+      </li>
+      <ul>
+        <li>
+          2008 Extension 2
+        </li>
+        <li>
+          2009
+        </li>
+        <li>
+          2011
+        </li>
+      </ul>
+
+      <li>
+        Linux 64
+      </li>
+      <ul>
+        <li>
+          2008 Extension 2
+        </li>
+      </ul>
+    </ul>
+
+    <p>
+      <center>
+        <h4>
+          <a href="http://rubberguppy.com/resources/2010/07/Smooth-Mesh.zip" class="arrow-down" alt="Smooth Mesh v0.1" title="Smooth Mesh v0.1">Download</a>
+        </h4>
+      </center>
+    </p>
+  </p>
+</div>
+
+  </div>
+
+  
+</article>
+
+        </div>
+      </main>
+
+      
+
+<div class="page-nav">
+    
+    
+
+
+
+
+
+
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+      
+    
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+      
+    
+      
+        
+      
+    
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+
+
+
+  <!-- MENU / Static pages -->
+  <nav class="site-nav">
+    <div class="site-title">
+
+        
+        <div class="title-text">
+          <div><a href="/"><img class="title1" src="/assets/img/title1.png" alt="Rubber Guppy"></a></div>
+          <div><a href="/"><img class="title2" src="/assets/img/title2.png" alt="Rubber Guppy"></a></div>
+          <div class="title-logo"><div class="animation-buffer-1">
+            <div><img src="/assets/img/guppy-logo.png" alt="Rubber Guppy"></div></div>
+          </div>
+        </div>
+      </div>
+
+    <div class="nav-menu">
+      <ul>
+      
+      
+        
+          
+            
+            
+              <li><h3>
+                <a class="page-link" href="/about.html">About</a>
+              </h3></li>
+            
+          
+        
+          
+            
+            
+              <li><h3>
+                <a class="page-link" href="/downloads.html">Downloads</a>
+              </h3></li>
+            
+          
+        
+          
+            
+            
+          
+        
+          
+            
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+      <li>
+        <a class="page-link" href="#"><h3> &gt; Blog Categories</h3></a>
+        <ul>
+
+          
+            
+              <li><h4><a class="page-link" href="/category/close-contact">
+              Close contact
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/math">
+              Math
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/maya">
+              Maya
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/maya-api">
+              Maya api
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/musings">
+              Musings
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/python">
+              Python
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/research">
+              Research
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/tips-tricks">
+              Tips & tricks
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/website">
+              Website
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/programming">
+              Programming
+              
+              </a></h4></li>
+            
+          
+          
+        </ul>
+      </li>
+      
+      </ul>
+    </div>
+  </nav>
+
+</div>
+
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+    <ul class="social-icons">
+
+          
+
+          
+            <li><a class="linkedin" href="https://www.linkedin.com/in/rubberguppy"><span>LinkedIn</span></a></li>
+          
+
+          
+            <li><a class="twitter" href="https://twitter.com/assumptionsoup"><span>Twitter</span></a></li>
+          
+
+          
+
+          
+            <li><a class="github" href="https://github.com/assumptionsoup"><span>Github</span></a></li>
+          
+
+          
+            <li><a class="email" href="mailto:assumptionsoup@gmail.com"><span>Email</span></a></li>
+          
+    </ul>
+    <ul>
+      <li>
+        <div class="author">
+          
+            Jordan Hueckstaedt
+          
+        </div>
+      </li>
+    </ul>
+
+</footer>
+
+
+  </body>
+
+</html>

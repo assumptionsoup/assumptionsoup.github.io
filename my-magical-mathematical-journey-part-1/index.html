@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>My Magical Mathematical Journey Part 1</title>
+  <meta name="description" content="My mathematical journey into the world of smooth stretch began two weeks ago. Or rather, it started a long time ago when I first learned about smooth stretch...">
+
+  <link rel="stylesheet" href="/assets/css/bundle.main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="/vendor.js"></script>
+  <script src="/bundle.js"></script>
+  <link rel="canonical" href="http://rubberguppy.com/my-magical-mathematical-journey-part-1/">
+  <link rel="alternate" type="application/rss+xml" title="Rubber Guppy" href="/feed.xml">
+
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+</header>
+
+    <div class="page-body">
+      <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+          <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">My Magical Mathematical Journey Part 1</h1>
+    <p class="post-meta">
+      <time datetime="2012-09-11T14:57:08+00:00" itemprop="datePublished">
+        
+        Sep 11, 2012
+      </time>
+      
+        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Jordan Hueckstaedt</span></span>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>My mathematical journey into the world of smooth stretch began two weeks ago. Or rather, it started a long time ago when I first learned about smooth stretch from Michael Hutchinson’s cool <a href="http://michael-hutchinson.com/downloads/index.php">Elastik</a> plugin. At that time I tried to replicate it using just sweat, blood, <a href="http://www.softimageblog.com/archives/108">an XSI Blog post on the matter for some math insight</a> and native Maya nodes.</p>
+
+<p>Smooth stretch is actually on my latest (and now outdated) demo reel. That version was my second attempt at smooth stretch. Version 2.0. This was my third attempt. Version 3.0. There’s something magical about the third attempt of any problem. By then you know the real issues. You know what to concentrate on and the pitfalls to avoid. You have the time to concentrate on what’s really important. In short, the third attempt is where shit gets done.
+<a class="anchor" id="excerpt-continue"></a>
+But what is smooth stretch, and what does it solve? Smooth stretch is a way to solve the popping that occurs on an IK chain when it reaches its maximum length (aka, an IK pop). Smooth stretch solves this by changing the length of the IK chain as it nears full extension.</p>
+
+<p>In a stretchy IK system, smooth stretch eases the transition from rotational movement to linear movement. In a stretchy IK system a set of joints will rotate until they reach their maximum extension. Then they will then instantly begin to scale towards the IK handle (linear translation). Smooth stretch eases the transition between these two types of movement by starting to scale the joints (move them linearly) while they are still rotating.</p>
+
+<p>The concept is relatively simple. The real question is, how do you know when to start easing this transition and by how much? In my first and second iterations of smooth stretch I focused on interpolating between two functions over a given time. The two functions were simply the rotation movement and linear movement of the joints. The interpolation was an animation curve I made in Maya. This had two major problems with it. The first problem was mostly an aesthetical one. The animation curve I drew in Maya was not something I could represent easily with math. It was messy. It was also not mathematically derived. I could judge how much I liked the curve by eyeballing the results, but with rigging I’ve grown to distrust doing things like that when dealing with math. The second problem was a mathematical one. If I represented the interpolation these two functions by using a Maya animation curve and that curve is embedded in an equation, how do I solve this for an IK/FK switch?</p>
+
+<p>Things got messy from there. This was not a good solution in my opinion. While it could have been possible to solve my IK/FK switch by representing the hermite curve that the Maya animation curve represented, solving it as a non-parametric function and use that to solve my original equation… It was far beyond anything I could do at the time (and still probably is). Obviously, if you’ve seen my demo reel, you know I must have done something because I show an IK/FK switch with smooth stretch in there. I “solved” it by treating the entire equation as a black box. I iteratively solved the equation by guessing at the answer using a modified binary search. It would plug a guess into Maya, see if the result was close to what it should be, increase or decrease the value depending on what it got back, and eventually find the answer to the specified accuracy.</p>
+
+<p>The solution was definitely a hack in my mind. And not the good kind of hack. The kind of hack you make when desperation sets in and nothing else works. Or deadlines start looming.</p>
+
+<p>This post is looking like it will be epic in length, so I’m going to split it up into a few posts. See you next time as we delve further into my smooth stretch journey.</p>
+
+  </div>
+
+  
+</article>
+
+        </div>
+      </main>
+
+      
+
+<div class="page-nav">
+    
+    
+
+
+
+
+
+
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+      
+    
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+      
+    
+      
+        
+      
+    
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+
+
+
+  <!-- MENU / Static pages -->
+  <nav class="site-nav">
+    <div class="site-title">
+
+        
+        <div class="title-text">
+          <div><a href="/"><img class="title1" src="/assets/img/title1.png" alt="Rubber Guppy"></a></div>
+          <div><a href="/"><img class="title2" src="/assets/img/title2.png" alt="Rubber Guppy"></a></div>
+          <div class="title-logo"><div class="animation-buffer-1">
+            <div><img src="/assets/img/guppy-logo.png" alt="Rubber Guppy"></div></div>
+          </div>
+        </div>
+      </div>
+
+    <div class="nav-menu">
+      <ul>
+      
+      
+        
+          
+            
+            
+              <li><h3>
+                <a class="page-link" href="/about.html">About</a>
+              </h3></li>
+            
+          
+        
+          
+            
+            
+              <li><h3>
+                <a class="page-link" href="/downloads.html">Downloads</a>
+              </h3></li>
+            
+          
+        
+          
+            
+            
+          
+        
+          
+            
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+      <li>
+        <a class="page-link" href="#"><h3> &gt; Blog Categories</h3></a>
+        <ul>
+
+          
+            
+              <li><h4><a class="page-link" href="/category/close-contact">
+              Close contact
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/math">
+              Math
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/maya">
+              Maya
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/maya-api">
+              Maya api
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/musings">
+              Musings
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/python">
+              Python
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/research">
+              Research
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/tips-tricks">
+              Tips & tricks
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/website">
+              Website
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/programming">
+              Programming
+              
+              </a></h4></li>
+            
+          
+          
+        </ul>
+      </li>
+      
+      </ul>
+    </div>
+  </nav>
+
+</div>
+
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+    <ul class="social-icons">
+
+          
+
+          
+            <li><a class="linkedin" href="https://www.linkedin.com/in/rubberguppy"><span>LinkedIn</span></a></li>
+          
+
+          
+            <li><a class="twitter" href="https://twitter.com/assumptionsoup"><span>Twitter</span></a></li>
+          
+
+          
+
+          
+            <li><a class="github" href="https://github.com/assumptionsoup"><span>Github</span></a></li>
+          
+
+          
+            <li><a class="email" href="mailto:assumptionsoup@gmail.com"><span>Email</span></a></li>
+          
+    </ul>
+    <ul>
+      <li>
+        <div class="author">
+          
+            Jordan Hueckstaedt
+          
+        </div>
+      </li>
+    </ul>
+
+</footer>
+
+
+  </body>
+
+</html>

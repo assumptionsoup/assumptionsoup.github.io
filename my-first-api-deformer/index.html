@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>My First API Deformer</title>
+  <meta name="description" content="So much has been happening, where to start? How about Maya’s API. So I decided to learn how to swim, and jumped into the deep end of Maya’s API last month. I...">
+
+  <link rel="stylesheet" href="/assets/css/bundle.main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="/vendor.js"></script>
+  <script src="/bundle.js"></script>
+  <link rel="canonical" href="http://rubberguppy.com/my-first-api-deformer/">
+  <link rel="alternate" type="application/rss+xml" title="Rubber Guppy" href="/feed.xml">
+
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+</header>
+
+    <div class="page-body">
+      <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+          <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">My First API Deformer</h1>
+    <p class="post-meta">
+      <time datetime="2010-07-06T13:42:49+00:00" itemprop="datePublished">
+        
+        Jul 6, 2010
+      </time>
+      
+        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Jordan Hueckstaedt</span></span>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>So much has been happening, where to start? How about Maya’s API. So I decided to learn how to swim, and jumped into the deep end of Maya’s API last month. It was the deep end, because I decided to start with writing a deformer in Python. I thought that python would be the simpler language to do it in before trying C++, since the last time I touched C++ was more than a few years ago. <em>Boy was I wrong</em>.</p>
+
+<p>So lets imagine this situation. There is a company out there that does the best work in their field. And that’s the company you want, since they’re the best. They are of course located in Japan, the mecha center of this industry. So you hire their most flexible agent. He shows up at your door, and the first words he says are, “Hello, me the name associated with subject Super Agent Man is.” Huh? The most flexible agent from the best company in the world speaks English with a Japanese grammatical structure? How does that make any sense? Well, it doesn’t. But that’s Maya’s Python API. You can write it in Python, but you’re still speaking C++.
+<a class="anchor" id="excerpt-continue"></a>
+In any case, I muscled through and completed my goal. In no small part thanks to the <a href="http://groups.google.com/group/python_inside_maya">Maya in Python Google Group</a> (and some informative questions posed by none other than Jason Osipa), Chad Vernon’s little <a href="http://www.chadvernon.com/blog/resources/maya-api-programming/">API walkthrough</a>, and of course the best (and basically only) API book on the market <a href="http://www.amazon.com/Complete-Maya-Programming-Extensive-Kaufmann/dp/1558608354/ref=sr_1_1?ie=UTF8&amp;s=books&amp;qid=1278442271&amp;sr=1-1">Complete Maya Programming</a> by David Gould.</p>
+
+<p>The deformer I set out to write was a simple average verticies deformer, or in more accurate terms a mesh smoothing deformer. I wanted to write this deformer, since Maya’s default average verticies operation is nearly useless in rigging. Maya’s doesn’t have an envelope and it stops smoothing after 20 iterations. My smooth mesh deformer should be available to download now in the increasingly inaccurately named <a href="http://rubberguppy.com/scripts/">Scripts</a> section. You can read about what it can do there.</p>
+
+<p>On my way to writing this plugin, I decided I wanted it to maintain volume. First I attempted to research the subject. I found a few results, most of which contained math I was completely unable to understand at first glance. So I did what any questionably sane programmer would do. I tried to write my own!</p>
+
+<p>I formed the assumption that maintaining the area of a triangle which is defined by three points along a 2D edge would more or less maintain the overall area of a 2D polygon. I wrote it in 3D for the first time since trying it in 2D seemed harder to do given my base code. After teaching myself <a href="http://en.wikipedia.org/wiki/Linear_algebra">Linear Algebra</a> from the ever trusty Wikipedia, and <a href="http://www.mymathforum.com/viewtopic.php?f=20&amp;t=14070">one incredibly stupid mistake</a> about the area of a triangle, I arrived at my solution!</p>
+
+<p>At first, the results of my experiment appeared to be going quite well.</p>
+
+<p><a href="/resources/2010/07/primativeSmoothingChart.png" rel="lightbox[200]" title="Primitve Smoothing Chart"><img src="/resources/2010/07/primativeSmoothingChart.png" alt="Primitve Smoothing Chart" title="Primitve Smoothing Chart" class="alignnone size-large wp-image-212" /></a></p>
+
+<p>Well, at least until I tried it on the ubiquitous Standford Bunny and saw this…</p>
+
+<p><a href="/resources/2010/07/diseasedBunny2.jpg" rel="lightbox[200]" title="Diseased Bunny"><img src="/resources/2010/07/diseasedBunny2.jpg" alt="Diseased Bunny" title="Diseased Bunny" class="alignnone size-large wp-image-203" /></a></p>
+
+<p>Woah Nelly! What is that?! It looks like most of the volume was maintained, but at what cost? Now the Standford Bunny is a sad diseased little lump. It reminds me a bit like Fred from Splice. I think this was due to loss of the area of a triangle over time without referencing back to the original. Furthermore the lovely “warts” on that last one were happening because the algorithm was attempting to make every triangle a 60-60-60 – causing tiny pyramids to pop up. This effect might have gone unnoticed on the typical meshes that are used in animation, but it obviously wasn’t doing what I wanted. Oh well, it was nice to meet you, you strange sad little bunny mutation.</p>
+
+<p>So back to the drawing board with research. I went back to studying the Taubin method of mesh smoothing with volume preservation. I actually did figure out the math correctly though I didn’t know it until I stumbled on this little gem of five different clear <a href="http://sourceforge.net/projects/meshsmoothingto/">implementations of mesh smoothing in C++</a>.</p>
+
+<p>And that was the end of my Mesh Smoothing API Quest. At least for now. Later I may try again at a volume preservation technique closer to Blender’s Shrink Wrap and Smooth modifier put together, but for now on to other exciting things!</p>
+
+  </div>
+
+  
+</article>
+
+        </div>
+      </main>
+
+      
+
+<div class="page-nav">
+    
+    
+
+
+
+
+
+
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+      
+    
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+      
+    
+      
+        
+      
+    
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+
+
+
+  <!-- MENU / Static pages -->
+  <nav class="site-nav">
+    <div class="site-title">
+
+        
+        <div class="title-text">
+          <div><a href="/"><img class="title1" src="/assets/img/title1.png" alt="Rubber Guppy"></a></div>
+          <div><a href="/"><img class="title2" src="/assets/img/title2.png" alt="Rubber Guppy"></a></div>
+          <div class="title-logo"><div class="animation-buffer-1">
+            <div><img src="/assets/img/guppy-logo.png" alt="Rubber Guppy"></div></div>
+          </div>
+        </div>
+      </div>
+
+    <div class="nav-menu">
+      <ul>
+      
+      
+        
+          
+            
+            
+              <li><h3>
+                <a class="page-link" href="/about.html">About</a>
+              </h3></li>
+            
+          
+        
+          
+            
+            
+              <li><h3>
+                <a class="page-link" href="/downloads.html">Downloads</a>
+              </h3></li>
+            
+          
+        
+          
+            
+            
+          
+        
+          
+            
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+      <li>
+        <a class="page-link" href="#"><h3> &gt; Blog Categories</h3></a>
+        <ul>
+
+          
+            
+              <li><h4><a class="page-link" href="/category/close-contact">
+              Close contact
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/math">
+              Math
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/maya">
+              Maya
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/maya-api">
+              Maya api
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/musings">
+              Musings
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/python">
+              Python
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/research">
+              Research
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/tips-tricks">
+              Tips & tricks
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/website">
+              Website
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/programming">
+              Programming
+              
+              </a></h4></li>
+            
+          
+          
+        </ul>
+      </li>
+      
+      </ul>
+    </div>
+  </nav>
+
+</div>
+
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+    <ul class="social-icons">
+
+          
+
+          
+            <li><a class="linkedin" href="https://www.linkedin.com/in/rubberguppy"><span>LinkedIn</span></a></li>
+          
+
+          
+            <li><a class="twitter" href="https://twitter.com/assumptionsoup"><span>Twitter</span></a></li>
+          
+
+          
+
+          
+            <li><a class="github" href="https://github.com/assumptionsoup"><span>Github</span></a></li>
+          
+
+          
+            <li><a class="email" href="mailto:assumptionsoup@gmail.com"><span>Email</span></a></li>
+          
+    </ul>
+    <ul>
+      <li>
+        <div class="author">
+          
+            Jordan Hueckstaedt
+          
+        </div>
+      </li>
+    </ul>
+
+</footer>
+
+
+  </body>
+
+</html>

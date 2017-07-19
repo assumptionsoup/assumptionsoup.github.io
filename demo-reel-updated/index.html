@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Demo Reel Updated!</title>
+  <meta name="description" content="I’ve finally updated my demo reel! It has my new smooth stretch algorithm front and center. If you didn’t quite understand some of the concepts of my previou...">
+
+  <link rel="stylesheet" href="/assets/css/bundle.main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="/vendor.js"></script>
+  <script src="/bundle.js"></script>
+  <link rel="canonical" href="http://rubberguppy.com/demo-reel-updated/">
+  <link rel="alternate" type="application/rss+xml" title="Rubber Guppy" href="/feed.xml">
+
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+</header>
+
+    <div class="page-body">
+      <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+          <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Demo Reel Updated!</h1>
+    <p class="post-meta">
+      <time datetime="2012-09-18T17:07:09+00:00" itemprop="datePublished">
+        
+        Sep 18, 2012
+      </time>
+      
+        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Jordan Hueckstaedt</span></span>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>I’ve finally updated my demo reel! It has my new smooth stretch algorithm front and center. If you didn’t quite understand some of the concepts of my previous posts, you should definitely look at the video. I think it makes the concept if not the math a lot easier to understand.</p>
+
+<p>I also wanted to share this short method I made for accessing OpenMaya array attributes. It’s very quick and simple. I’d rather encapsulate things like this into smaller functions since the API has so many non-standard elements. Remembering them all can be a hassle.</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">getSparseArray</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">asType</span><span class="p">):</span>
+	<span class="s">''' Get the values from an array attribute using the datablock.
+	Returns a dictionary with the indexes as keys.
+
+	asType should be the function to convert the value to the proper type,
+	e.g. om.MDataHandle.asMatrix()'''</span>
+	<span class="n">arrayHandle</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">inputArrayValue</span><span class="p">(</span> <span class="n">attr</span> <span class="p">)</span>
+	<span class="n">items</span> <span class="o">=</span> <span class="p">{}</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">arrayHandle</span><span class="o">.</span><span class="n">elementCount</span><span class="p">()):</span>
+		<span class="n">arrayHandle</span><span class="o">.</span><span class="n">jumpToArrayElement</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+		<span class="n">items</span><span class="p">[</span><span class="n">arrayHandle</span><span class="o">.</span><span class="n">elementIndex</span><span class="p">()]</span> <span class="o">=</span> <span class="n">asType</span><span class="p">(</span><span class="n">arrayHandle</span><span class="o">.</span><span class="n">inputValue</span><span class="p">())</span>
+	<span class="k">return</span> <span class="n">items</span>
+</code></pre>
+</div>
+
+<p>If it isn’t immediately clear how you would use this, for a matrix array attribute that was created in the initialize method like this:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">nodeInit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="n">matrixAttr</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">MFnMatrixAttribute</span><span class="p">()</span>
+
+	<span class="c"># Inputs</span>
+	<span class="bp">self</span><span class="o">.</span><span class="n">aParentInverseMatrices</span> <span class="o">=</span> <span class="n">matrixAttr</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">'parentInverseMatrix'</span><span class="p">,</span> <span class="s">'parentInverseMatrix'</span><span class="p">,</span> <span class="n">om</span><span class="o">.</span><span class="n">MFnMatrixAttribute</span><span class="o">.</span><span class="n">kDouble</span><span class="p">)</span>
+	<span class="n">matrixAttr</span><span class="o">.</span><span class="n">setWritable</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+	<span class="n">matrixAttr</span><span class="o">.</span><span class="n">setStorable</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+	<span class="n">matrixAttr</span><span class="o">.</span><span class="n">setArray</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+	<span class="bp">self</span><span class="o">.</span><span class="n">addAttribute</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">aParentInverseMatrices</span> <span class="p">)</span>
+</code></pre>
+</div>
+
+<p>I would call my sparse method in the compute method like so:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">compute</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plug</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+	<span class="n">inverseMatrices</span> <span class="o">=</span> <span class="n">getSparseArray</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">aParentInverseMatrices</span><span class="p">,</span> <span class="n">om</span><span class="o">.</span><span class="n">MDataHandle</span><span class="o">.</span><span class="n">asMatrix</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>I just wrote this a few hours ago, and I can’t tell you how happy it made me. Now I don’t need to think nearly as hard when accessing sparse array attributes from the datablock. Of course, this still doesn’t help for all the other ways you might need to access array attributes. Getting the output value, or using the physical index, or getting it from a plug, or getting it from the <em>other</em> type of array attributes. Good God, this stuff needs to be simplified! In any case, good luck and god speed if you’re trying to use the Maya API to do anything.</p>
+
+  </div>
+
+  
+</article>
+
+        </div>
+      </main>
+
+      
+
+<div class="page-nav">
+    
+    
+
+
+
+
+
+
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+      
+    
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+      
+    
+      
+        
+      
+    
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+
+
+
+  <!-- MENU / Static pages -->
+  <nav class="site-nav">
+    <div class="site-title">
+
+        
+        <div class="title-text">
+          <div><a href="/"><img class="title1" src="/assets/img/title1.png" alt="Rubber Guppy"></a></div>
+          <div><a href="/"><img class="title2" src="/assets/img/title2.png" alt="Rubber Guppy"></a></div>
+          <div class="title-logo"><div class="animation-buffer-1">
+            <div><img src="/assets/img/guppy-logo.png" alt="Rubber Guppy"></div></div>
+          </div>
+        </div>
+      </div>
+
+    <div class="nav-menu">
+      <ul>
+      
+      
+        
+          
+            
+            
+              <li><h3>
+                <a class="page-link" href="/about.html">About</a>
+              </h3></li>
+            
+          
+        
+          
+            
+            
+              <li><h3>
+                <a class="page-link" href="/downloads.html">Downloads</a>
+              </h3></li>
+            
+          
+        
+          
+            
+            
+          
+        
+          
+            
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+      <li>
+        <a class="page-link" href="#"><h3> &gt; Blog Categories</h3></a>
+        <ul>
+
+          
+            
+              <li><h4><a class="page-link" href="/category/close-contact">
+              Close contact
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/math">
+              Math
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/maya">
+              Maya
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/maya-api">
+              Maya api
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/musings">
+              Musings
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/python">
+              Python
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/research">
+              Research
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/tips-tricks">
+              Tips & tricks
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/website">
+              Website
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/programming">
+              Programming
+              
+              </a></h4></li>
+            
+          
+          
+        </ul>
+      </li>
+      
+      </ul>
+    </div>
+  </nav>
+
+</div>
+
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+    <ul class="social-icons">
+
+          
+
+          
+            <li><a class="linkedin" href="https://www.linkedin.com/in/rubberguppy"><span>LinkedIn</span></a></li>
+          
+
+          
+            <li><a class="twitter" href="https://twitter.com/assumptionsoup"><span>Twitter</span></a></li>
+          
+
+          
+
+          
+            <li><a class="github" href="https://github.com/assumptionsoup"><span>Github</span></a></li>
+          
+
+          
+            <li><a class="email" href="mailto:assumptionsoup@gmail.com"><span>Email</span></a></li>
+          
+    </ul>
+    <ul>
+      <li>
+        <div class="author">
+          
+            Jordan Hueckstaedt
+          
+        </div>
+      </li>
+    </ul>
+
+</footer>
+
+
+  </body>
+
+</html>

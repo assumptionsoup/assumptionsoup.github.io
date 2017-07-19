@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>My Magical Mathematical Journey Part 3</title>
+  <meta name="description" content="Excellent. Smooth stretch was solved. Another day, another math problem solved. I felt like a crime fighter who just beat this giant math monster back. Or wa...">
+
+  <link rel="stylesheet" href="/assets/css/bundle.main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="/vendor.js"></script>
+  <script src="/bundle.js"></script>
+  <link rel="canonical" href="http://rubberguppy.com/my-magical-mathematical-journey-part-3/">
+  <link rel="alternate" type="application/rss+xml" title="Rubber Guppy" href="/feed.xml">
+
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+</header>
+
+    <div class="page-body">
+      <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+          <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">My Magical Mathematical Journey Part 3</h1>
+    <p class="post-meta">
+      <time datetime="2012-09-13T11:30:13+00:00" itemprop="datePublished">
+        
+        Sep 13, 2012
+      </time>
+      
+        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Jordan Hueckstaedt</span></span>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  "displayAlign": "left",
+  "tex2jax":  {inlineMath: [['$','$'], ['\\(','\\)']], skipTags: ["script","noscript","style","textarea","pre","code"]},
+
+});
+</script>
+
+<script type="text/javascript" async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<p>Excellent. Smooth stretch was solved. Another day, another math problem solved. I felt like a crime fighter who just beat this giant math monster back. Or was the math monster really solved? Wait, wait wait. Hold on a minute here! The whole reason of redoing this thing was that smooth stretch 2.0 didn’t work well in an IK/FK switch! If this new formula can’t help me solve that, then it’s no better than the old one. Oh crap!</p>
+
+<p>So I continued to stare at my math chalkboard.</p>
+
+<p>Okay. I needed to lay out the basics. Going from IK to FK would be simple. Just grab the current scale of the joints, and apply that to my FK chain. Going from FK to IK is all that I needed to concentrate on. So, what did I need to solve for? The IK Scale variable is what I put into the smooth stretch equation to find my final scale. So presumably all I needed to do was put in the final scale I had from the FK chain and get out the IK Scale.</p>
+
+<p>Wait. That won’t work. The IK Scale is the current scale of the IK chain. It’s based on the distance to the IK handle, and that’s not going to change in either FK or IK. I needed another variable.</p>
+
+<p>Luckily, I knew what I wanted that variable to be. The length variable. The variable that the animators would use to change the total length of the arm. After a little trial and error I came up with this equation to add length to the smooth stretch equation:</p>
+
+<div class="math">
+
+  $$Final\_Scale = smooth\_stretch\left(\frac{IK\_Scale}{Length}\right)Length$$
+
+</div>
+
+<p>This is where I started to really hit the limits of my math knowledge. Length is being multiplied inside the smooth stretch function as well as outside. Even if I did know the inverse of my smooth stretch function, how would I use that to solve for length?</p>
+
+<p>Well, there was nothing else to do but just try and see if something worked. I busted out wolphram alpha. Then I learned how to use wolphram alpha to solve the inverse of an equation. I solved for <a href="https://www.desmos.com/calculator/8oz8mkbb0d" title="Inverse Smooth Stretch Curve">the inverse of the regular smooth stretch curve</a>. I still didn’t know how to use it. I tried solving for <a href="https://www.desmos.com/calculator/w2wws1fypu" title="Inverse Smooth Stretch">the inverse of the entire smooth stretch function</a> including the pythagorean theorem. I still didn’t know how to use it.</p>
+
+<p>I went back to staring at my math chalkboard.</p>
+
+<p>I like to think that staring at my math chalkboard makes it sound like I’m some sort of math genius. Unfortunately I’m not. And staring at my math chalkboard usually means putting my head into my hands and letting the feeling of despair sink in. Then it’s a matter of waiting to see which will win. Inspiration or despair.</p>
+
+<p>I tried adding the <a href="https://www.desmos.com/calculator/yyptflsx1h" title="Smooth Stretch Curve with Length">IK Scale variable to my original smooth stretch curve and graphing it</a>. Maybe seeing what was going on visually would help. That was much better. I immediately saw that the length variable just projected my unit curve out from the origin. It merely scaled the smooth stretch curve.</p>
+
+<p>Inspiration struck. The smooth stretch curve could pass through any point in the first quadrant of the graph by changing the length variable. I wanted the smooth stretch curve to pass through the point that was the representation of the “elbow” in our IK chain. A vector starting at the origin with an infinite length pointing at the elbow on the graph will always pass through the unit smooth stretch curve. Therefore the length variable is literally the ratio of the distance to the elbow along that vector divided by the distance to the unit circle along that vector. All I needed to do was solve those two lengths.</p>
+
+<p>Skipping past some wolphram alpha wizardry and a bit of trial and error I ended up with <a href="https://www.desmos.com/calculator/fdk9yux17c" title="Smooth Stretch Solved for Length">the following graph</a> which solves smooth stretch for the length variable given the IK Scale variable and an arbitrary point in the first quadrant (a,b). Keep in mind that the graph only works in the falloff section of the smooth stretch equation due to the limitations of the graphing software. However, solving for any point which is not in the falloff section is much easier since the distance to the unit circle will always be 1, so the length variable will just be the distance to the elbow point.</p>
+
+<p>Into the python code!</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">maya.OpenMaya</span> <span class="kn">as</span> <span class="nn">om</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span>
+<span class="k">def</span> <span class="nf">smooth_stretch_length</span><span class="p">(</span><span class="n">joint_positions</span><span class="p">,</span> <span class="n">original_lengthA</span><span class="p">,</span> <span class="n">falloff_scale</span>  <span class="o">=</span> <span class="mf">1.73</span><span class="p">):</span>
+	<span class="c"># Assumes that there are at least 3 ordered joints</span>
+
+	<span class="c"># To solve length:</span>
+	<span class="c"># Find the length of the vector from the origin to the</span>
+	<span class="c">#    joint_positions[1] x, y value (solved on the plane formed by joint_positions). (scalePoint)</span>
+	<span class="c"># Find the length of that vector where it intersects with smooth stretch circle curve at a length of 1. (unit_curve)</span>
+	<span class="c"># The difference is the length!</span>
+
+	<span class="c"># Find preliminary triangle stuff:</span>
+
+	<span class="c"># Assume jointPosition is a lists of lists.  Convert to MVectors</span>
+	<span class="n">vectors</span> <span class="o">=</span> <span class="p">[</span><span class="n">om</span><span class="o">.</span><span class="n">MVector</span><span class="p">(</span><span class="o">*</span><span class="n">pos</span><span class="p">)</span> <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="n">joint_positions</span><span class="p">]</span>
+
+	<span class="c"># Find vectors AB, AC</span>
+	<span class="n">unit_vectors</span> <span class="o">=</span> <span class="p">[</span><span class="n">vectors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+	<span class="n">unit_vectors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vectors</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+	<span class="c"># Find the angle formed where joint_positions[0] is the vertex (in radians).</span>
+	<span class="n">angle</span> <span class="o">=</span> <span class="n">unit_vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">unit_vectors</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+	<span class="c"># Solve triangle (scalePoint)</span>
+	<span class="n">scaleH</span> <span class="o">=</span> <span class="n">unit_vectors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="o">/</span> <span class="n">original_lengthA</span>
+	<span class="n">scaleX</span> <span class="o">=</span> <span class="n">scaleH</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+	<span class="n">scaleY</span> <span class="o">=</span> <span class="n">scaleH</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+
+	<span class="c"># Now start to solve for length</span>
+	<span class="c"># Find radius</span>
+	<span class="n">radius</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">falloff_scale</span>  <span class="o">**</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">scaleY</span> <span class="o">&gt;=</span> <span class="p">(</span> <span class="n">radius</span> <span class="o">/</span> <span class="n">falloff_scale</span>  <span class="p">)</span> <span class="o">*</span> <span class="n">scaleX</span><span class="p">:</span>
+		<span class="c"># The vector to scale point (the elbow) is above the tangentPoint.</span>
+		<span class="c"># It is therefore going through a unit circle and would be divided by 1</span>
+		<span class="k">return</span> <span class="n">scaleH</span>
+
+	<span class="k">if</span> <span class="nb">round</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mf">0.0</span> <span class="ow">and</span> <span class="nb">round</span><span class="p">(</span><span class="n">scaleH</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="nb">round</span><span class="p">(</span><span class="n">scaleX</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+		<span class="k">return</span> <span class="mf">1.0</span>
+	<span class="c"># Solve the intersection of the scaleVector with the unit_curve</span>
+	<span class="c"># That is, the solution to (scaleY / scaleX) * currentScale == falloffCircle</span>
+	<span class="c"># Hold on to your panty-hoes kids, we're in for some chop.</span>
+	<span class="n">unit_curveX</span> <span class="o">=</span> <span class="p">(</span><span class="n">scaleX</span> <span class="o">**</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">falloff_scale</span>  <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">scaleX</span> <span class="o">**</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">scaleY</span> <span class="o">*</span> <span class="n">falloff_scale</span>  <span class="o">*</span> <span class="n">radius</span> <span class="o">-</span>
+				 <span class="n">scaleX</span> <span class="o">**</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">scaleY</span> <span class="o">**</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">falloff_scale</span>  <span class="o">**</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="n">scaleX</span> <span class="o">**</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">scaleY</span> <span class="o">**</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">**</span> <span class="mf">2.0</span><span class="p">)</span> <span class="o">+</span>
+				 <span class="n">scaleX</span> <span class="o">*</span> <span class="n">scaleY</span> <span class="o">*</span> <span class="n">radius</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">scaleX</span> <span class="o">**</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="n">scaleY</span> <span class="o">**</span> <span class="mf">2.0</span><span class="p">)</span>
+	<span class="n">unit_curveY</span> <span class="o">=</span> <span class="n">radius</span> <span class="o">-</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="p">((</span><span class="n">falloff_scale</span>  <span class="o">-</span> <span class="n">unit_curveX</span><span class="p">)</span> <span class="o">/</span> <span class="n">radius</span><span class="p">)</span> <span class="o">**</span> <span class="mf">2.0</span><span class="p">)</span>
+	<span class="n">unit_curveH</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">unit_curveX</span> <span class="o">**</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="n">unit_curveY</span> <span class="o">**</span> <span class="mf">2.0</span><span class="p">)</span>
+
+	<span class="c"># Length is the distance to the scale point divided by the distance to the unit curve</span>
+	<span class="n">length</span> <span class="o">=</span> <span class="n">scaleH</span> <span class="o">/</span> <span class="n">unit_curveH</span>
+
+	<span class="k">return</span> <span class="n">length</span>
+</code></pre>
+</div>
+
+<p>And that’s a wrap. The math monster was defeated for real.</p>
+
+  </div>
+
+  
+</article>
+
+        </div>
+      </main>
+
+      
+
+<div class="page-nav">
+    
+    
+
+
+
+
+
+
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+      
+    
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+      
+    
+      
+        
+      
+    
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+
+
+
+  <!-- MENU / Static pages -->
+  <nav class="site-nav">
+    <div class="site-title">
+
+        
+        <div class="title-text">
+          <div><a href="/"><img class="title1" src="/assets/img/title1.png" alt="Rubber Guppy"></a></div>
+          <div><a href="/"><img class="title2" src="/assets/img/title2.png" alt="Rubber Guppy"></a></div>
+          <div class="title-logo"><div class="animation-buffer-1">
+            <div><img src="/assets/img/guppy-logo.png" alt="Rubber Guppy"></div></div>
+          </div>
+        </div>
+      </div>
+
+    <div class="nav-menu">
+      <ul>
+      
+      
+        
+          
+            
+            
+              <li><h3>
+                <a class="page-link" href="/about.html">About</a>
+              </h3></li>
+            
+          
+        
+          
+            
+            
+              <li><h3>
+                <a class="page-link" href="/downloads.html">Downloads</a>
+              </h3></li>
+            
+          
+        
+          
+            
+            
+          
+        
+          
+            
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+      <li>
+        <a class="page-link" href="#"><h3> &gt; Blog Categories</h3></a>
+        <ul>
+
+          
+            
+              <li><h4><a class="page-link" href="/category/close-contact">
+              Close contact
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/math">
+              Math
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/maya">
+              Maya
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/maya-api">
+              Maya api
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/musings">
+              Musings
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/python">
+              Python
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/research">
+              Research
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/tips-tricks">
+              Tips & tricks
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/website">
+              Website
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/programming">
+              Programming
+              
+              </a></h4></li>
+            
+          
+          
+        </ul>
+      </li>
+      
+      </ul>
+    </div>
+  </nav>
+
+</div>
+
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+    <ul class="social-icons">
+
+          
+
+          
+            <li><a class="linkedin" href="https://www.linkedin.com/in/rubberguppy"><span>LinkedIn</span></a></li>
+          
+
+          
+            <li><a class="twitter" href="https://twitter.com/assumptionsoup"><span>Twitter</span></a></li>
+          
+
+          
+
+          
+            <li><a class="github" href="https://github.com/assumptionsoup"><span>Github</span></a></li>
+          
+
+          
+            <li><a class="email" href="mailto:assumptionsoup@gmail.com"><span>Email</span></a></li>
+          
+    </ul>
+    <ul>
+      <li>
+        <div class="author">
+          
+            Jordan Hueckstaedt
+          
+        </div>
+      </li>
+    </ul>
+
+</footer>
+
+
+  </body>
+
+</html>

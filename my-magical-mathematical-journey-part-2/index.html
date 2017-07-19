@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>My Magical Mathematical Journey Part 2</title>
+  <meta name="description" content="As I was trying to say in my last post, two weeks ago I began my mathematical journey into smooth stretch. This time around I knew what I wanted to accomplis...">
+
+  <link rel="stylesheet" href="/assets/css/bundle.main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="/vendor.js"></script>
+  <script src="/bundle.js"></script>
+  <link rel="canonical" href="http://rubberguppy.com/my-magical-mathematical-journey-part-2/">
+  <link rel="alternate" type="application/rss+xml" title="Rubber Guppy" href="/feed.xml">
+
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+</header>
+
+    <div class="page-body">
+      <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+          <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">My Magical Mathematical Journey Part 2</h1>
+    <p class="post-meta">
+      <time datetime="2012-09-12T19:01:37+00:00" itemprop="datePublished">
+        
+        Sep 12, 2012
+      </time>
+      
+        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Jordan Hueckstaedt</span></span>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>As I was trying to say in my last post, two weeks ago I began my mathematical journey into smooth stretch. This time around I knew what I wanted to accomplish. I wanted a way to represent smooth stretch using just math. My Maya API chops had increased since my last attempt, so I could now wrap this math into a nice python/c++ node.</p>
+
+<p>Now I hear what you’re saying, “But Jordan, that XSI blog you pointed to already has the math in it!” Yes, I know. That blog post shows the math for one way to solve smooth stretch. I just didn’t like that way. Using that equation the IK chain never actually becomes straight because there’s an asymptote at y = 0. When I made my first attempt at smooth stretch I tried using that equation in an expression. In the rigs I tested it on, I remember it was painfully obvious that the arms were never straight. My last iteration of smooth stretch didn’t have this problem, and I didn’t want to solve one part of the problem just to introduce another.</p>
+
+<p>So, with my stubbornness in tow and a goal in mind I went back to the math drawing board.</p>
+
+<p>First things first. I needed a way to model what a normal stretchy IK system was doing with just math. In a normal stretchy IK system, you are usually solving the scale of the shoulder and elbow joint as a function of the distance to the IK Handle. This is calculated by the current distance to the IK handle divided by the total distance the IK handle can go. Lets call this number the IK Scale.</p>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  "displayAlign": "left",
+  "tex2jax":  {inlineMath: [['$','$'], ['\\(','\\)']], skipTags: ["script","noscript","style","textarea","pre","code"]},
+
+});
+</script>
+
+<script type="text/javascript" async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<div class="math">
+
+$$IK\ Scale = \frac{Current\ Distance}{Total\ Distance}$$
+
+</div>
+
+<p>When the IK Scale is 1, the chain is fully extended. When the IK Scale is at 0, the chain is completely bent. IK scale is therefore the variable used to solve a normal stretchy IK system. So whatever graph I came up with would have to be a function of this variable. That is to say, IK scale would be the variable x in my equation f(x).</p>
+
+<p>Scrutinizing a normal IK system, I noticed the obvious. In an IK system consisting of a shoulder, elbow and a wrist, the elbow will always rotate around the shoulder. The elbow draws a circle around the shoulder in the plane defined by the pole-vector. It’s a 2D circle. A quarter-circle to be precise. And if you make this circle a function of our IK scale, then you would have a visual representation of an IK system. A quick google search later for how to graph a quarter circle and I had <a href="https://www.desmos.com/calculator/lp2lsb90jh" title="Stretchy IK Graph">this graph representing an Ik system</a>.</p>
+
+<p>This was when I had a really great epiphany (even if it’s pretty darn obvious). The scale of the shoulder joint in this graph was literally the distance from the origin to the point on the circle. So to find the scale of the shoulder (and therefore the scale of any other joint in the IK system), all I needed was the Pythagorean theorem! What’s even more cool, is that this wasn’t just true about the circle function I just drew, it was true for <em>any</em> function. All I needed to make was the graph of an equation of the path I wanted my elbow to take while stretching, and that’s what my IK chain would do. So to write it all out:</p>
+
+<div class="math">
+
+  $$Final\ Joint\ Scale = \sqrt{any\ equation(IK\ Scale)^2 + IK\ Scale^2}$$
+
+</div>
+
+<p>Wow. So I can use any function I want to describe the motion of the elbow joint. I just need an equation that smoothly eases from y = 1 to y = 0. Well, hey! I know a function that does that. I could just use the gaussian function. At this point I did a little jig, hooked up a guassian function and <a href="https://www.desmos.com/calculator/y2dfrnmtk1">looked at the graph</a>. Well. The elbow did follow the gaussian function. There was only a wee little problem with this. The IK chain was shrinking for most of the graph.</p>
+
+<p>So, while I can plug any function I want into this equation to find the scale, the function has to always stay above the unit circle on the y-axis or the IK chain will start to shrink.</p>
+
+<p>Now I started thinking about how I could keep things about that y limit. I tried adding an equation to the x part of the unit circle function. That just made a distorted half circle. Then I thought about attaching bezier curves to the right point on the circle and getting the starting tangent at that point to match the circle. I thought about this for a pretty long time before I decided two things. One, this was very similar to my last technique of solving smooth stretch, which I decided was too complex. And two, I only had a vague idea of how to do this, so it was going to take too long to figure out.</p>
+
+<p>I went back to staring at my math chalkboard.</p>
+
+<p>I had another epiphany. I had one unit circle. If you draw a second circle that touches the first at a single point, that point will have the same slope on both circles. I already had the equation for a circle. I just needed to constrain it so that it touched the first. Then I could constrain it so that its bottom edge would touch y=0. That would give me a nice smooth falloff. What’s more, if I changed the radius of the second circle, I could control exactly how long the IK chain would be when it became straight. This was an important point. Though I haven’t mentioned it before, this was very high on my list of priorities when I was considering how to approach this problem. The final equation needed to provide flexible and intuitive control for animators. Any solution that couldn’t achieve both would not be a real solution.</p>
+
+<p>Easy to say, but it wasn’t necessarily easy to implement. This took me awhile to figure out how to do. In the end, I ended up with a <a href="https://www.desmos.com/calculator/y758xj2rw6" title="Smooth Stretch by Distance">graph that used two functions to draw a single smooth curve</a> which never falls below the unit circle on the y-axis.</p>
+
+<p>The math for that graph is as follows.</p>
+<div class="math">
+
+$$Radius = 0.5(Falloff\_Length^2 - 1) \\
+Unit\_Circle = \sqrt{1-IK\_Scale^2} \\
+Falloff\_Circle = Radius-Radius\sqrt{1-\left(\frac{Falloff\_Length-IK\_Scale}{Radius}\right)^2} \\
+Tangent\_Point = \frac{Falloff\_Length}{\sqrt{Radius^2+Falloff\_Length^2}}$$
+
+<div class="math">
+
+  * **Falloff_Length** is the point where the falloff reaches y = 0 (the y intercept). That is, the scale of the arm when it becomes completely straight.
+  * **Radius** is the radius of the second circle (the Falloff circle). It is a function of Falloff_Length.
+  * **Tangent_Point** is the point at which the two circles meet. When IK\_Scale is less than or equal to this, the unit circle equation is used. When IK\_Scale is greater, the second falloff circle equation is used.
+
+All that was left was to plug the result of that equation into the pythagorean theorem to find the stretch scale.
+
+Math functions usually hurt my brain. So if you're like me, here's the python code of what's going on above. This is the python code I'm currently using inside my final smooth stretch node. Note that this python code has some minor optimizations &#8211; primarily it skips calculating the unit circle function since any pythagorean operation on the unit circle will always result in 1.
+
+```python
+from math import sqrt
+def smooth_stretch(ik_scale, falloff_scale = 1.73):
+	if falloff_scale &gt; 1:
+		# Find radius
+		radius = 0.5 * (falloff_scale ** 2 - 1.0)
+
+		# Meeting point
+		tangent_point = falloff_scale / sqrt(radius ** 2 + falloff_scale ** 2)
+
+		if ik_scale &lt;= tangent_point:
+			# Optimization to skip unit circle calculation
+			return 1.0
+
+		# Falloff circle.
+		# Limit between meeting point and y-intercept(y == 0)
+		# Circle bounds may technically be larger.
+		if tangent_point &lt; ik_scale and ik_scale &lt;= falloff_scale:
+			falloff_circle = radius - radius * sqrt(1 - ((falloff_scale - ik_scale) / radius) ** 2)
+		else:
+			falloff_circle = 0.0
+
+		# Pythagorean to the rescue!
+		final_scale = sqrt(falloff_circle ** 2 + ik_scale ** 2)
+	else:
+		final_scale = max(1.0, ik_scale)
+
+	return final_scale
+```
+</div></div>
+
+  </div>
+
+  
+</article>
+
+        </div>
+      </main>
+
+      
+
+<div class="page-nav">
+    
+    
+
+
+
+
+
+
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+      
+    
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+      
+    
+      
+        
+      
+    
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+
+
+
+  <!-- MENU / Static pages -->
+  <nav class="site-nav">
+    <div class="site-title">
+
+        
+        <div class="title-text">
+          <div><a href="/"><img class="title1" src="/assets/img/title1.png" alt="Rubber Guppy"></a></div>
+          <div><a href="/"><img class="title2" src="/assets/img/title2.png" alt="Rubber Guppy"></a></div>
+          <div class="title-logo"><div class="animation-buffer-1">
+            <div><img src="/assets/img/guppy-logo.png" alt="Rubber Guppy"></div></div>
+          </div>
+        </div>
+      </div>
+
+    <div class="nav-menu">
+      <ul>
+      
+      
+        
+          
+            
+            
+              <li><h3>
+                <a class="page-link" href="/about.html">About</a>
+              </h3></li>
+            
+          
+        
+          
+            
+            
+              <li><h3>
+                <a class="page-link" href="/downloads.html">Downloads</a>
+              </h3></li>
+            
+          
+        
+          
+            
+            
+          
+        
+          
+            
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+      <li>
+        <a class="page-link" href="#"><h3> &gt; Blog Categories</h3></a>
+        <ul>
+
+          
+            
+              <li><h4><a class="page-link" href="/category/close-contact">
+              Close contact
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/math">
+              Math
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/maya">
+              Maya
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/maya-api">
+              Maya api
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/musings">
+              Musings
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/python">
+              Python
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/research">
+              Research
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/tips-tricks">
+              Tips & tricks
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/website">
+              Website
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/programming">
+              Programming
+              
+              </a></h4></li>
+            
+          
+          
+        </ul>
+      </li>
+      
+      </ul>
+    </div>
+  </nav>
+
+</div>
+
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+    <ul class="social-icons">
+
+          
+
+          
+            <li><a class="linkedin" href="https://www.linkedin.com/in/rubberguppy"><span>LinkedIn</span></a></li>
+          
+
+          
+            <li><a class="twitter" href="https://twitter.com/assumptionsoup"><span>Twitter</span></a></li>
+          
+
+          
+
+          
+            <li><a class="github" href="https://github.com/assumptionsoup"><span>Github</span></a></li>
+          
+
+          
+            <li><a class="email" href="mailto:assumptionsoup@gmail.com"><span>Email</span></a></li>
+          
+    </ul>
+    <ul>
+      <li>
+        <div class="author">
+          
+            Jordan Hueckstaedt
+          
+        </div>
+      </li>
+    </ul>
+
+</footer>
+
+
+  </body>
+
+</html>
