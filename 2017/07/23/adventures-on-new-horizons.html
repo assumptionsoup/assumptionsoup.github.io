@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Adventures on New Horizons</title>
+  <meta name="description" content="It’s that time of year again. Update time. A quick review: since the last time I posted, I joined Dreamworks to work on their Oriental Dreamworks pipeline. D...">
+
+  <link rel="stylesheet" href="/assets/css/bundle.main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="/vendor.js"></script>
+  <script src="/bundle.js"></script>
+  <link rel="canonical" href="http://rubberguppy.com/2017/07/23/adventures-on-new-horizons.html">
+  <link rel="alternate" type="application/rss+xml" title="Rubber Guppy" href="/feed.xml">
+
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+</header>
+
+    <div class="page-body">
+      <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+          <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Adventures on New Horizons</h1>
+    <p class="post-meta">
+      <time datetime="2017-07-23T15:04:51+00:00" itemprop="datePublished">
+        
+        Jul 23, 2017
+      </time>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>It’s that time of year again.  Update time.  A quick review: since the last time I posted, I joined Dreamworks to work on their Oriental Dreamworks pipeline.  Due to the constraints of the job, I felt that posting on this blog was not in my best interest.  As a result, this website and my git repo languished.  I worked with a lot of really awesome people there, but ultimately due to a number of reasons, I decided to leave and try other pursuits.</p>
+
+<p>Pursuits in VR!</p>
+
+<p>I set out with the rough goals:</p>
+<ul>
+  <li>Learn about gaming.</li>
+  <li>Learn about VR.</li>
+  <li>Make a thing.</li>
+</ul>
+
+<p class="meda-text-wrap">My first approach was to make a game with grid-snapping in Unreal Engine.  I got my feet wet testing new ideas with unreal blueprints and I dusted off my c++ knowledge.  My c++ knowledge turned out to be dusty indeed.  I quickly ran afoul of Unreals macro system, which made it incredibly difficult to figure out if my particular problem was specific to unreal or not.  (For those not in the know, unreal adds a reflection system to c++ via macros and a transpilation process.  It’s all very magical.)</p>
+
+<div class="video-container-right">
+    <iframe src="https://gfycat.com/ifr/ShinyHappyFossa" frameborder="0" scrolling="no" allowfullscreen="" height="230"></iframe>
+</div>
+
+<!-- <div style="clear: both"></div> -->
+<p class="meda-text-wrap">I quickly learned that moving code from blueprints to c++ and vice versa is a very manual and error-prone process.  But, in the end, I did get my grid snapping system working. Of course, as soon as I did, I learned that zapping tables was way more fun!</p>
+
+<div style="clear: both"></div>
+
+<a class="anchor" id="excerpt-continue"></a>
+
+<p>And then somewhere in the middle of making a sweet dissolve/teleporting shader for some game element I was planning, I ran into <a href="https://en.wikipedia.org/wiki/Signed_distance_function"> signed distance functions.</a></p>
+
+<div class="video-container-left">
+    <iframe src="https://gfycat.com/ifr/HauntingUncommonFlamingo" height="230" width="400" frameborder="0" scrolling="no" allowfullscreen=""></iframe>
+</div>
+
+<p class="meda-text-wrap">Signed distance functions describe where a surface is in 3D space.  Combined with a variety of techniques, they can be used to render a 3D scene.  They are an incredibly simple concept that can achieve some <a href="https://www.shadertoy.com/view/4sX3R2">truly stunning results</a>. At first, I was looking at how this applied to my dissolve shader.  Until I saw what Media Molecule was doing with it for their next game, Dreams.</p>
+
+<div style="clear: both"></div>
+
+<div class="video-container"><iframe src="https://gfycat.com/ifr/NastyUncommonAmberpenshell" frameborder="0" scrolling="no" allowfullscreen=""></iframe></div>
+
+<p><br />
+Wow.  Just wow.  These guys are making a game <em>that doesn’t use polygons</em>.  That’s insane.  Mind blowing.  Fantastic.  I want in.  And then I saw this video:</p>
+
+<figure class="video-container center">
+    <iframe src="https://www.youtube.com/embed/u9KNtnCZDMI" frameborder="0" allowfullscreen=""></iframe>
+</figure>
+
+<p>And promptly fell into a math-hole.</p>
+
+<div class="gallery center">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="#visualization-of-entire-quadtree-structure-first-pass">
+  <img src="/resources/project-march/quadtree_art-thumb.jpg" class="thumbnail thumbnail-med" title="Visualization of entire quadtree structure - first pass" />
+</a>
+<a href="#_" class="lightbox .short-animate" id="visualization-of-entire-quadtree-structure-first-pass" title="Visualization of entire quadtree structure - first pass">
+  <img class=".long-animate" src="/resources/project-march/quadtree_art.jpg" />
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="#visualization-of-sdf-composition-bug">
+  <img src="/resources/project-march/programmer_art-thumb.jpg" class="thumbnail thumbnail-med" title="Visualization of sdf composition bug" />
+</a>
+<a href="#_" class="lightbox .short-animate" id="visualization-of-sdf-composition-bug" title="Visualization of sdf composition bug">
+  <img class=".long-animate" src="/resources/project-march/programmer_art.jpg" />
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="#visualization-of-3d-sdf-distances-in-unity">
+  <img src="/resources/project-march/unity_sdf_debug-thumb.jpg" class="thumbnail thumbnail-med" title="Visualization of 3D SDF distances in unity" />
+</a>
+<a href="#_" class="lightbox .short-animate" id="visualization-of-3d-sdf-distances-in-unity" title="Visualization of 3D SDF distances in unity">
+  <img class=".long-animate" src="/resources/project-march/unity_sdf_debug.jpg" />
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="#incorrect-refinement-of-quadtree-around-a-circle">
+  <img src="/resources/project-march/quadtree_to_the_max-thumb.jpg" class="thumbnail thumbnail-med" title="Incorrect refinement of quadtree around a circle" />
+</a>
+<a href="#_" class="lightbox .short-animate" id="incorrect-refinement-of-quadtree-around-a-circle" title="Incorrect refinement of quadtree around a circle">
+  <img class=".long-animate" src="/resources/project-march/quadtree_to_the_max.jpg" />
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="#visualization-of-quadtree-including-dead-branches">
+  <img src="/resources/project-march/mesmerizing-thumb.jpg" class="thumbnail thumbnail-med" title="Visualization of quadtree including dead branches" />
+</a>
+<a href="#_" class="lightbox .short-animate" id="visualization-of-quadtree-including-dead-branches" title="Visualization of quadtree including dead branches">
+  <img class=".long-animate" src="/resources/project-march/mesmerizing.jpg" />
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="#visualization-of-sdf-distances">
+  <img src="/resources/project-march/distance_vis-thumb.jpg" class="thumbnail thumbnail-med" title="Visualization of sdf distances" />
+</a>
+<a href="#_" class="lightbox .short-animate" id="visualization-of-sdf-distances" title="Visualization of sdf distances">
+  <img class=".long-animate" src="/resources/project-march/distance_vis.jpg" />
+</a>
+
+
+
+
+</div>
+
+<p>To be continued…</p>
+
+
+  </div>
+
+  
+</article>
+
+        </div>
+      </main>
+
+      
+
+<div class="page-nav">
+    
+    
+
+
+
+
+
+
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+      
+    
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+      
+    
+      
+        
+      
+    
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+  
+  
+  
+    
+      
+    
+    
+  
+    
+      
+        
+          
+          
+    
+  
+  
+
+
+
+
+  <!-- MENU / Static pages -->
+  <nav class="site-nav">
+    <div class="site-title">
+
+        
+        <div class="title-text">
+          <div><a href="/"><img class="title1" src="/assets/img/title1.png" alt="Rubber Guppy"></a></div>
+          <div><a href="/"><img class="title2" src="/assets/img/title2.png" alt="Rubber Guppy"></a></div>
+          <div class="title-logo"><div class="animation-buffer-1">
+            <div><img src="/assets/img/guppy-logo.png" alt="Rubber Guppy"></div></div>
+          </div>
+        </div>
+      </div>
+
+    <div class="nav-menu">
+      <ul>
+      
+      
+        
+          
+            
+            
+              <li><h3>
+                <a class="page-link" href="/about.html">About</a>
+              </h3></li>
+            
+          
+        
+          
+            
+            
+              <li><h3>
+                <a class="page-link" href="/downloads.html">Downloads</a>
+              </h3></li>
+            
+          
+        
+          
+            
+            
+          
+        
+          
+            
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+      <li>
+        <a class="page-link" href="#"><h3> &gt; Blog Categories</h3></a>
+        <ul>
+
+          
+            
+              <li><h4><a class="page-link" href="/category/close-contact">
+              Close contact
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/math">
+              Math
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/maya">
+              Maya
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/maya-api">
+              Maya api
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/musings">
+              Musings
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/python">
+              Python
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/research">
+              Research
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/tips-tricks">
+              Tips & tricks
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/website">
+              Website
+              
+              </a></h4></li>
+            
+              <li><h4><a class="page-link" href="/category/programming">
+              Programming
+              
+              </a></h4></li>
+            
+          
+          
+        </ul>
+      </li>
+      
+      </ul>
+    </div>
+  </nav>
+
+</div>
+
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+    <ul class="social-icons">
+
+          
+
+          
+            <li><a class="linkedin" href="https://www.linkedin.com/in/rubberguppy"><span>LinkedIn</span></a></li>
+          
+
+          
+            <li><a class="twitter" href="https://twitter.com/assumptionsoup"><span>Twitter</span></a></li>
+          
+
+          
+
+          
+            <li><a class="github" href="https://github.com/assumptionsoup"><span>Github</span></a></li>
+          
+
+          
+            <li><a class="email" href="mailto:assumptionsoup@gmail.com"><span>Email</span></a></li>
+          
+    </ul>
+    <ul>
+      <li>
+        <div class="author">
+          
+            Jordan Hueckstaedt
+          
+        </div>
+      </li>
+    </ul>
+
+</footer>
+
+
+  </body>
+
+</html>

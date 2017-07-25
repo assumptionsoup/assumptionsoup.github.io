@@ -1,14 +1,201 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://rubberguppy.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://rubberguppy.com/" rel="alternate" type="text/html" /><updated>2017-07-22T02:36:47+00:00</updated><id>http://rubberguppy.com/</id><title type="html">Rubber Guppy</title><subtitle>GUPPIES GUPPY GUPPY GUPPIES GUP GUP YUP YUPPER GUPPER GUPPALICIOUS
-</subtitle><author><name>Jordan Hueckstaedt</name></author><entry><title type="html">All play and no work makes Jack a dull applicant.</title><link href="http://rubberguppy.com/all-play-and-no-work-makes-jack-a-dull-applicant/" rel="alternate" type="text/html" title="All play and no work makes Jack a dull applicant." /><published>2014-01-31T00:17:40+00:00</published><updated>2014-01-31T00:17:40+00:00</updated><id>http://rubberguppy.com/all-play-and-no-work-makes-jack-a-dull-applicant</id><content type="html" xml:base="http://rubberguppy.com/all-play-and-no-work-makes-jack-a-dull-applicant/">&lt;p&gt;Yes, I have in fact been doing work this past year! Lots of it, actually. A 45 hour standard work week doesn’t leave much time for anything else. Which is why this blog and Guppy Tools have sadly been neglected. Don’t get me wrong, Guppy Tools isn’t broken. I just haven’t been able to give it the love it needs to reflect my current skill level. I hope to change that soon though.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://rubberguppy.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://rubberguppy.com/" rel="alternate" type="text/html" /><updated>2017-07-25T07:27:05+00:00</updated><id>http://rubberguppy.com/</id><title type="html">Rubber Guppy</title><subtitle>GUPPIES GUPPY GUPPY GUPPIES GUP GUP YUP YUPPER GUPPER GUPPALICIOUS
+</subtitle><author><name>Jordan Hueckstaedt</name></author><entry><title type="html">Adventures on New Horizons</title><link href="http://rubberguppy.com/2017/07/23/adventures-on-new-horizons.html" rel="alternate" type="text/html" title="Adventures on New Horizons" /><published>2017-07-23T15:04:51+00:00</published><updated>2017-07-23T15:04:51+00:00</updated><id>http://rubberguppy.com/2017/07/23/adventures-on-new-horizons</id><content type="html" xml:base="http://rubberguppy.com/2017/07/23/adventures-on-new-horizons.html">&lt;p&gt;It’s that time of year again.  Update time.  A quick review: since the last time I posted, I joined Dreamworks to work on their Oriental Dreamworks pipeline.  Due to the constraints of the job, I felt that posting on this blog was not in my best interest.  As a result, this website and my git repo languished.  I worked with a lot of really awesome people there, but ultimately due to a number of reasons, I decided to leave and try other pursuits.&lt;/p&gt;
+
+&lt;p&gt;Pursuits in VR!&lt;/p&gt;
+
+&lt;p&gt;I set out with the rough goals:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Learn about gaming.&lt;/li&gt;
+  &lt;li&gt;Learn about VR.&lt;/li&gt;
+  &lt;li&gt;Make a thing.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p class=&quot;meda-text-wrap&quot;&gt;My first approach was to make a game with grid-snapping in Unreal Engine.  I got my feet wet testing new ideas with unreal blueprints and I dusted off my c++ knowledge.  My c++ knowledge turned out to be dusty indeed.  I quickly ran afoul of Unreals macro system, which made it incredibly difficult to figure out if my particular problem was specific to unreal or not.  (For those not in the know, unreal adds a reflection system to c++ via macros and a transpilation process.  It’s all very magical.)&lt;/p&gt;
+
+&lt;div class=&quot;video-container-right&quot;&gt;
+    &lt;iframe src=&quot;https://gfycat.com/ifr/ShinyHappyFossa&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;&quot; height=&quot;230&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;!-- &lt;div style=&quot;clear: both&quot;&gt;&lt;/div&gt; --&gt;
+&lt;p class=&quot;meda-text-wrap&quot;&gt;I quickly learned that moving code from blueprints to c++ and vice versa is a very manual and error-prone process.  But, in the end, I did get my grid snapping system working. Of course, as soon as I did, I learned that zapping tables was way more fun!&lt;/p&gt;
+
+&lt;div style=&quot;clear: both&quot;&gt;&lt;/div&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;And then somewhere in the middle of making a sweet dissolve/teleporting shader for some game element I was planning, I ran into &lt;a href=&quot;https://en.wikipedia.org/wiki/Signed_distance_function&quot;&gt; signed distance functions.&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;video-container-left&quot;&gt;
+    &lt;iframe src=&quot;https://gfycat.com/ifr/HauntingUncommonFlamingo&quot; height=&quot;230&quot; width=&quot;400&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;p class=&quot;meda-text-wrap&quot;&gt;Signed distance functions describe where a surface is in 3D space.  Combined with a variety of techniques, they can be used to render a 3D scene.  They are an incredibly simple concept that can achieve some &lt;a href=&quot;https://www.shadertoy.com/view/4sX3R2&quot;&gt;truly stunning results&lt;/a&gt;. At first, I was looking at how this applied to my dissolve shader.  Until I saw what Media Molecule was doing with it for their next game, Dreams.&lt;/p&gt;
+
+&lt;div style=&quot;clear: both&quot;&gt;&lt;/div&gt;
+
+&lt;div class=&quot;video-container&quot;&gt;&lt;iframe src=&quot;https://gfycat.com/ifr/NastyUncommonAmberpenshell&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;
+Wow.  Just wow.  These guys are making a game &lt;em&gt;that doesn’t use polygons&lt;/em&gt;.  That’s insane.  Mind blowing.  Fantastic.  I want in.  And then I saw this video:&lt;/p&gt;
+
+&lt;figure class=&quot;video-container center&quot;&gt;
+    &lt;iframe src=&quot;https://www.youtube.com/embed/u9KNtnCZDMI&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;And promptly fell into a math-hole.&lt;/p&gt;
+
+&lt;div class=&quot;gallery center&quot;&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;a href=&quot;#visualization-of-entire-quadtree-structure-first-pass&quot;&gt;
+  &lt;img src=&quot;/resources/project-march/quadtree_art-thumb.jpg&quot; class=&quot;thumbnail thumbnail-med&quot; title=&quot;Visualization of entire quadtree structure - first pass&quot; /&gt;
+&lt;/a&gt;
+&lt;a href=&quot;#_&quot; class=&quot;lightbox .short-animate&quot; id=&quot;visualization-of-entire-quadtree-structure-first-pass&quot; title=&quot;Visualization of entire quadtree structure - first pass&quot;&gt;
+  &lt;img class=&quot;.long-animate&quot; src=&quot;/resources/project-march/quadtree_art.jpg&quot; /&gt;
+&lt;/a&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;a href=&quot;#visualization-of-sdf-composition-bug&quot;&gt;
+  &lt;img src=&quot;/resources/project-march/programmer_art-thumb.jpg&quot; class=&quot;thumbnail thumbnail-med&quot; title=&quot;Visualization of sdf composition bug&quot; /&gt;
+&lt;/a&gt;
+&lt;a href=&quot;#_&quot; class=&quot;lightbox .short-animate&quot; id=&quot;visualization-of-sdf-composition-bug&quot; title=&quot;Visualization of sdf composition bug&quot;&gt;
+  &lt;img class=&quot;.long-animate&quot; src=&quot;/resources/project-march/programmer_art.jpg&quot; /&gt;
+&lt;/a&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;a href=&quot;#visualization-of-3d-sdf-distances-in-unity&quot;&gt;
+  &lt;img src=&quot;/resources/project-march/unity_sdf_debug-thumb.jpg&quot; class=&quot;thumbnail thumbnail-med&quot; title=&quot;Visualization of 3D SDF distances in unity&quot; /&gt;
+&lt;/a&gt;
+&lt;a href=&quot;#_&quot; class=&quot;lightbox .short-animate&quot; id=&quot;visualization-of-3d-sdf-distances-in-unity&quot; title=&quot;Visualization of 3D SDF distances in unity&quot;&gt;
+  &lt;img class=&quot;.long-animate&quot; src=&quot;/resources/project-march/unity_sdf_debug.jpg&quot; /&gt;
+&lt;/a&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;a href=&quot;#incorrect-refinement-of-quadtree-around-a-circle&quot;&gt;
+  &lt;img src=&quot;/resources/project-march/quadtree_to_the_max-thumb.jpg&quot; class=&quot;thumbnail thumbnail-med&quot; title=&quot;Incorrect refinement of quadtree around a circle&quot; /&gt;
+&lt;/a&gt;
+&lt;a href=&quot;#_&quot; class=&quot;lightbox .short-animate&quot; id=&quot;incorrect-refinement-of-quadtree-around-a-circle&quot; title=&quot;Incorrect refinement of quadtree around a circle&quot;&gt;
+  &lt;img class=&quot;.long-animate&quot; src=&quot;/resources/project-march/quadtree_to_the_max.jpg&quot; /&gt;
+&lt;/a&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;a href=&quot;#visualization-of-quadtree-including-dead-branches&quot;&gt;
+  &lt;img src=&quot;/resources/project-march/mesmerizing-thumb.jpg&quot; class=&quot;thumbnail thumbnail-med&quot; title=&quot;Visualization of quadtree including dead branches&quot; /&gt;
+&lt;/a&gt;
+&lt;a href=&quot;#_&quot; class=&quot;lightbox .short-animate&quot; id=&quot;visualization-of-quadtree-including-dead-branches&quot; title=&quot;Visualization of quadtree including dead branches&quot;&gt;
+  &lt;img class=&quot;.long-animate&quot; src=&quot;/resources/project-march/mesmerizing.jpg&quot; /&gt;
+&lt;/a&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;a href=&quot;#visualization-of-sdf-distances&quot;&gt;
+  &lt;img src=&quot;/resources/project-march/distance_vis-thumb.jpg&quot; class=&quot;thumbnail thumbnail-med&quot; title=&quot;Visualization of sdf distances&quot; /&gt;
+&lt;/a&gt;
+&lt;a href=&quot;#_&quot; class=&quot;lightbox .short-animate&quot; id=&quot;visualization-of-sdf-distances&quot; title=&quot;Visualization of sdf distances&quot;&gt;
+  &lt;img class=&quot;.long-animate&quot; src=&quot;/resources/project-march/distance_vis.jpg&quot; /&gt;
+&lt;/a&gt;
+
+
+
+
+&lt;/div&gt;
+
+&lt;p&gt;To be continued…&lt;/p&gt;</content><author><name>Jordan Hueckstaedt</name></author><summary type="html">It’s that time of year again. Update time. A quick review: since the last time I posted, I joined Dreamworks to work on their Oriental Dreamworks pipeline. Due to the constraints of the job, I felt that posting on this blog was not in my best interest. As a result, this website and my git repo languished. I worked with a lot of really awesome people there, but ultimately due to a number of reasons, I decided to leave and try other pursuits. Pursuits in VR! I set out with the rough goals: Learn about gaming. Learn about VR. Make a thing. My first approach was to make a game with grid-snapping in Unreal Engine. I got my feet wet testing new ideas with unreal blueprints and I dusted off my c++ knowledge. My c++ knowledge turned out to be dusty indeed. I quickly ran afoul of Unreals macro system, which made it incredibly difficult to figure out if my particular problem was specific to unreal or not. (For those not in the know, unreal adds a reflection system to c++ via macros and a transpilation process. It’s all very magical.) I quickly learned that moving code from blueprints to c++ and vice versa is a very manual and error-prone process. But, in the end, I did get my grid snapping system working. Of course, as soon as I did, I learned that zapping tables was way more fun!</summary></entry><entry><title type="html">All play and no work makes Jack a dull applicant.</title><link href="http://rubberguppy.com/all-play-and-no-work-makes-jack-a-dull-applicant/" rel="alternate" type="text/html" title="All play and no work makes Jack a dull applicant." /><published>2014-01-31T00:17:40+00:00</published><updated>2014-01-31T00:17:40+00:00</updated><id>http://rubberguppy.com/all-play-and-no-work-makes-jack-a-dull-applicant</id><content type="html" xml:base="http://rubberguppy.com/all-play-and-no-work-makes-jack-a-dull-applicant/">&lt;p&gt;Yes, I have in fact been doing work this past year! Lots of it, actually. A 45 hour standard work week doesn’t leave much time for anything else. Which is why this blog and Guppy Tools have sadly been neglected. Don’t get me wrong, Guppy Tools isn’t broken. I just haven’t been able to give it the love it needs to reflect my current skill level. I hope to change that soon though.&lt;/p&gt;
 
 &lt;p&gt;What’s my current skill level you ask? Well, it just so happens that I recently asked my supervisor at Luma Pictures if I could show off a little of what I’ve been doing. And luckily for both of us, I got the go ahead! May I proudly present: &lt;strong&gt;Close Contact&lt;/strong&gt;, a C++ deformer I made solve to approximate collisions a few months ago.&lt;/p&gt;
 
 &lt;div class=&quot;video-container&quot;&gt;
-
-&lt;iframe src=&quot;https://player.vimeo.com/video/85112404&quot; width=&quot;640&quot; height=&quot;299&quot; frameborder=&quot;0&quot; webkitallowfullscreen=&quot;&quot; mozallowfullscreen=&quot;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-
+&lt;iframe src=&quot;https://player.vimeo.com/video/85112404&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 &lt;/div&gt;
-&lt;!--break--&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;!--break--&gt;&lt;/p&gt;
 
 &lt;p&gt;Okay, I lied a little. This isn’t quite an accurate picture of what I do with most of my time at work. I spend the large majority of my time writing python code heavily tied to Luma’s existing architecture. It’s not something I could show off.&lt;/p&gt;
 
@@ -308,11 +495,4 @@ But what is smooth stretch, and what does it solve? Smooth stretch is a way to s
 
 &lt;p&gt;So there are many reasons why I’m going to use Github. The primary reason is to get my work off my computer, and into the hands of other users. To help with this goal, all of my Github repositories will be live repositories. Any change I make on my computer, I plan to immediately push to Github. I don’t want to sit on my code in fear of bugs and have my Github page turn into a barren wasteland. This means that anyone who uses my Github scripts will have all the newest features, the newest bugfixes, and the newest bugs that I’ve commited. If this leads to a problem with users, I may split off my work into two branches, a Live branch and a Master branch, with the expectation that the Master branch will be more stable. But for now I’m going to only use a Master branch to keep things simple.&lt;/p&gt;</content><author><name>Jordan Hueckstaedt</name></author><summary type="html">Welcome back, my imaginary visitor. I like to imagine that people actually visit my site. It’s probably all my imagination. I also like to imagine that there’s a single person in Bangladesh that obsessively visits my site to fill the void in his life, and the OCD in his head.</summary></entry><entry><title type="html">My favorite typo.</title><link href="http://rubberguppy.com/my-favorite-typo/" rel="alternate" type="text/html" title="My favorite typo." /><published>2012-08-07T13:36:56+00:00</published><updated>2012-08-07T13:36:56+00:00</updated><id>http://rubberguppy.com/my-favorite-typo</id><content type="html" xml:base="http://rubberguppy.com/my-favorite-typo/">&lt;p&gt;My favorite typo when I’m writing python code is “enumerage.” I make this mistake about 25% of the time I try to type “enumerate” for some reason. And every time I have to giggle a little. Something about the idea of Number Rage tickles the little kid in me (or perhaps more etymologically correct, Counting Rage). I imagine a person getting angrier and angrier from the mere sight of numbers. Numbers anywhere. They can’t stand the numbers. Especially when the numbers are in order.&lt;/p&gt;
 
-&lt;p&gt;Do you have a favorite typo?&lt;/p&gt;</content><author><name>Jordan Hueckstaedt</name></author><summary type="html">My favorite typo when I’m writing python code is “enumerage.” I make this mistake about 25% of the time I try to type “enumerate” for some reason. And every time I have to giggle a little. Something about the idea of Number Rage tickles the little kid in me (or perhaps more etymologically correct, Counting Rage). I imagine a person getting angrier and angrier from the mere sight of numbers. Numbers anywhere. They can’t stand the numbers. Especially when the numbers are in order. Do you have a favorite typo?</summary></entry><entry><title type="html">Fun Trick #1</title><link href="http://rubberguppy.com/fun-trick-1/" rel="alternate" type="text/html" title="Fun Trick #1" /><published>2012-07-29T17:29:51+00:00</published><updated>2012-07-29T17:29:51+00:00</updated><id>http://rubberguppy.com/fun-trick-1</id><content type="html" xml:base="http://rubberguppy.com/fun-trick-1/">&lt;p&gt;Here’s a fun trick in Maya. This creates a locator with no name:&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;maya.cmds&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;cmd&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spaceLocator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'1'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;It seems like I always manage to accidentally do this in every 3D package I try.&lt;/p&gt;</content><author><name>Jordan Hueckstaedt</name></author><summary type="html">Here’s a fun trick in Maya. This creates a locator with no name: import maya.cmds as cmd cmd.spaceLocator(n = '1') It seems like I always manage to accidentally do this in every 3D package I try.</summary></entry></feed>
+&lt;p&gt;Do you have a favorite typo?&lt;/p&gt;</content><author><name>Jordan Hueckstaedt</name></author><summary type="html">My favorite typo when I’m writing python code is “enumerage.” I make this mistake about 25% of the time I try to type “enumerate” for some reason. And every time I have to giggle a little. Something about the idea of Number Rage tickles the little kid in me (or perhaps more etymologically correct, Counting Rage). I imagine a person getting angrier and angrier from the mere sight of numbers. Numbers anywhere. They can’t stand the numbers. Especially when the numbers are in order. Do you have a favorite typo?</summary></entry></feed>
