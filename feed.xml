@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://rubberguppy.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://rubberguppy.com/" rel="alternate" type="text/html" /><updated>2017-07-26T02:50:55+00:00</updated><id>http://rubberguppy.com/</id><title type="html">Rubber Guppy</title><subtitle>GUPPY GUPPIES GUPPY GUP GUP YUP GUPPIES YUPPER GUPPER GUPPALICIOUS
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://rubberguppy.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://rubberguppy.com/" rel="alternate" type="text/html" /><updated>2017-07-26T03:32:35+00:00</updated><id>http://rubberguppy.com/</id><title type="html">Rubber Guppy</title><subtitle>GUPPY GUPPIES GUPPY GUP GUP YUP GUPPIES YUPPER GUPPER GUPPALICIOUS
 </subtitle><author><name>Jordan Hueckstaedt</name></author><entry><title type="html">Adventures on New Horizons</title><link href="http://rubberguppy.com/2017/07/23/adventures-on-new-horizons.html" rel="alternate" type="text/html" title="Adventures on New Horizons" /><published>2017-07-23T15:04:51+00:00</published><updated>2017-07-23T15:04:51+00:00</updated><id>http://rubberguppy.com/2017/07/23/adventures-on-new-horizons</id><content type="html" xml:base="http://rubberguppy.com/2017/07/23/adventures-on-new-horizons.html">&lt;p&gt;It’s that time of year again.  Update time.  A quick review: since the last time I posted, I joined Dreamworks to work on their Oriental Dreamworks pipeline.  Due to the constraints of the job, I felt that posting on this blog was not in my best interest.  As a result, this website and my git repo languished.  I worked with a lot of really awesome people there, but ultimately due to a number of reasons, I decided to leave and try other pursuits.&lt;/p&gt;
 
 &lt;p&gt;Pursuits in VR!&lt;/p&gt;
@@ -10,35 +10,35 @@
   &lt;li&gt;Make a thing.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p class=&quot;meda-text-wrap&quot;&gt;My first approach was to make a game with grid-snapping in Unreal Engine.  I got my feet wet testing new ideas with unreal blueprints and I dusted off my c++ knowledge.  My c++ knowledge turned out to be dusty indeed.  I quickly ran afoul of Unreals macro system, which made it incredibly difficult to figure out if my particular problem was specific to unreal or not.  (For those not in the know, unreal adds a reflection system to c++ via macros and a transpilation process.  It’s all very magical.)&lt;/p&gt;
+&lt;p class=&quot;mmedia-container-text-wrap&quot;&gt;My first approach was to make a game with grid-snapping in Unreal Engine.  I got my feet wet testing new ideas with unreal blueprints and I dusted off my c++ knowledge.  My c++ knowledge turned out to be dusty indeed.  I quickly ran afoul of Unreals macro system, which made it incredibly difficult to figure out if my particular problem was specific to unreal or not.  (For those not in the know, unreal adds a reflection system to c++ via macros and a transpilation process.  It’s all very magical.)&lt;/p&gt;
 
-&lt;div class=&quot;video-container-right&quot;&gt;
+&lt;div class=&quot;media-container-right&quot;&gt;
     &lt;iframe src=&quot;https://gfycat.com/ifr/ShinyHappyFossa&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;&quot; height=&quot;230&quot;&gt;&lt;/iframe&gt;
 &lt;/div&gt;
 
 &lt;!-- &lt;div style=&quot;clear: both&quot;&gt;&lt;/div&gt; --&gt;
-&lt;p class=&quot;meda-text-wrap&quot;&gt;I quickly learned that moving code from blueprints to c++ and vice versa is a very manual and error-prone process.  But, in the end, I did get my grid snapping system working. Of course, as soon as I did, I learned that zapping tables was way more fun!&lt;/p&gt;
+&lt;p class=&quot;mmedia-container-text-wrap&quot;&gt;I quickly learned that moving code from blueprints to c++ and vice versa is a very manual and error-prone process.  But, in the end, I did get my grid snapping system working. Of course, as soon as I did, I learned that zapping tables was way more fun!&lt;/p&gt;
 
 &lt;div style=&quot;clear: both&quot;&gt;&lt;/div&gt;
 
 &lt;!--break--&gt;
 
-&lt;p&gt;And then somewhere in the middle of making a sweet dissolve/teleporting shader for some game element I was planning, I ran into &lt;a href=&quot;https://en.wikipedia.org/wiki/Signed_distance_function&quot;&gt; signed distance functions.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;And then somewhere in the middle of making a sweet dissolve/teleporting shader for some game element I was planning, I ran into &lt;a href=&quot;https://en.wikipmedia-container.org/wiki/Signed_distance_function&quot;&gt; signed distance functions.&lt;/a&gt;&lt;/p&gt;
 
-&lt;div class=&quot;video-container-left&quot;&gt;
+&lt;div class=&quot;media-container-left&quot;&gt;
     &lt;iframe src=&quot;https://gfycat.com/ifr/HauntingUncommonFlamingo&quot; height=&quot;230&quot; width=&quot;400&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 &lt;/div&gt;
 
-&lt;p class=&quot;meda-text-wrap&quot;&gt;Signed distance functions describe where a surface is in 3D space.  Combined with a variety of techniques, they can be used to render a 3D scene.  They are an incredibly simple concept that can achieve some &lt;a href=&quot;https://www.shadertoy.com/view/4sX3R2&quot;&gt;truly stunning results&lt;/a&gt;. At first, I was looking at how this applied to my dissolve shader.  Until I saw what Media Molecule was doing with it for their next game, Dreams.&lt;/p&gt;
+&lt;p class=&quot;mmedia-container-text-wrap&quot;&gt;Signed distance functions describe where a surface is in 3D space.  Combined with a variety of techniques, they can be used to render a 3D scene.  They are an incredibly simple concept that can achieve some &lt;a href=&quot;https://www.shadertoy.com/view/4sX3R2&quot;&gt;truly stunning results&lt;/a&gt;. At first, I was looking at how this applied to my dissolve shader.  Until I saw what Mmedia-container Molecule was doing with it for their next game, Dreams.&lt;/p&gt;
 
 &lt;div style=&quot;clear: both&quot;&gt;&lt;/div&gt;
 
-&lt;div class=&quot;video-container&quot;&gt;&lt;iframe src=&quot;https://gfycat.com/ifr/NastyUncommonAmberpenshell&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
+&lt;div class=&quot;media-container&quot;&gt;&lt;iframe src=&quot;https://gfycat.com/ifr/NastyUncommonAmberpenshell&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;br /&gt;
 Wow.  Just wow.  These guys are making a game &lt;em&gt;that doesn’t use polygons&lt;/em&gt;.  That’s insane.  Mind blowing.  Fantastic.  I want in.  And then I saw this video:&lt;/p&gt;
 
-&lt;figure class=&quot;video-container center&quot;&gt;
+&lt;figure class=&quot;media-container center&quot;&gt;
     &lt;iframe src=&quot;https://www.youtube.com/embed/u9KNtnCZDMI&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 &lt;/figure&gt;
 
@@ -225,7 +225,7 @@ Please don’t contact me again. &lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;Check this out. Last year Luma Pictures did the Harlem shake:&lt;/p&gt;
 
-&lt;figure class=&quot;video-container center&quot;&gt;
+&lt;figure class=&quot;media-container center&quot;&gt;
     &lt;iframe src=&quot;https://www.youtube.com/embed/y0uokF71RFk&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 &lt;/figure&gt;
 
