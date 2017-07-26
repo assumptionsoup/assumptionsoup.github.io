@@ -25,6 +25,7 @@
 </head>
 
 
+
   <body>
 
     <header class="site-header" role="banner">
@@ -57,9 +58,31 @@
 <p>This is the first blog I’ve had since High School and the first professional blog I’ve ever created. Since then I have learned a few things about blogging. As such I fully intend to update this beast as sporadically as possible with content mostly pertaining to my work at hand. With as little ranting and none of the social drama that so consumed my life as a teenager. I hope you will bear with my occasional missteps as I curse the day various software developers ever wrote their first snippets of code.</p>
 
   </div>
+</article>
+
 
   
-</article>
+
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://rubberguppy.com/website-operational/';
+      this.page.identifier = 'http://rubberguppy.com/website-operational/';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://rubberguppy.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
 
         </div>
       </main>
