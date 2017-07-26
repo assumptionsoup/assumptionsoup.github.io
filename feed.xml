@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://rubberguppy.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://rubberguppy.com/" rel="alternate" type="text/html" /><updated>2017-07-26T03:32:35+00:00</updated><id>http://rubberguppy.com/</id><title type="html">Rubber Guppy</title><subtitle>GUPPY GUPPIES GUPPY GUP GUP YUP GUPPIES YUPPER GUPPER GUPPALICIOUS
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://rubberguppy.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://rubberguppy.com/" rel="alternate" type="text/html" /><updated>2017-07-26T03:59:48+00:00</updated><id>http://rubberguppy.com/</id><title type="html">Rubber Guppy</title><subtitle>GUPPY GUPPIES GUPPY GUP GUP YUP GUPPIES YUPPER GUPPER GUPPALICIOUS
 </subtitle><author><name>Jordan Hueckstaedt</name></author><entry><title type="html">Adventures on New Horizons</title><link href="http://rubberguppy.com/2017/07/23/adventures-on-new-horizons.html" rel="alternate" type="text/html" title="Adventures on New Horizons" /><published>2017-07-23T15:04:51+00:00</published><updated>2017-07-23T15:04:51+00:00</updated><id>http://rubberguppy.com/2017/07/23/adventures-on-new-horizons</id><content type="html" xml:base="http://rubberguppy.com/2017/07/23/adventures-on-new-horizons.html">&lt;p&gt;It’s that time of year again.  Update time.  A quick review: since the last time I posted, I joined Dreamworks to work on their Oriental Dreamworks pipeline.  Due to the constraints of the job, I felt that posting on this blog was not in my best interest.  As a result, this website and my git repo languished.  I worked with a lot of really awesome people there, but ultimately due to a number of reasons, I decided to leave and try other pursuits.&lt;/p&gt;
 
 &lt;p&gt;Pursuits in VR!&lt;/p&gt;
@@ -60,7 +60,7 @@ Wow.  Just wow.  These guys are making a game &lt;em&gt;that doesn’t use polyg
 
 
 &lt;a href=&quot;#visualization-of-entire-quadtree-structure-first-pass&quot;&gt;
-  &lt;img src=&quot;/resources/project-march/quadtree_art-thumb.jpg&quot; class=&quot;thumbnail thumbnail-med&quot; title=&quot;Visualization of entire quadtree structure - first pass&quot; /&gt;
+  &lt;img src=&quot;/resources/project-march/quadtree_art-thumb.jpg&quot; class=&quot;thumbnail&quot; title=&quot;Visualization of entire quadtree structure - first pass&quot; /&gt;
 &lt;/a&gt;
 &lt;a href=&quot;#_&quot; class=&quot;lightbox .short-animate&quot; id=&quot;visualization-of-entire-quadtree-structure-first-pass&quot; title=&quot;Visualization of entire quadtree structure - first pass&quot;&gt;
   &lt;img class=&quot;.long-animate&quot; src=&quot;/resources/project-march/quadtree_art.jpg&quot; /&gt;
@@ -83,7 +83,7 @@ Wow.  Just wow.  These guys are making a game &lt;em&gt;that doesn’t use polyg
 
 
 &lt;a href=&quot;#visualization-of-sdf-composition-bug&quot;&gt;
-  &lt;img src=&quot;/resources/project-march/programmer_art-thumb.jpg&quot; class=&quot;thumbnail thumbnail-med&quot; title=&quot;Visualization of sdf composition bug&quot; /&gt;
+  &lt;img src=&quot;/resources/project-march/programmer_art-thumb.jpg&quot; class=&quot;thumbnail&quot; title=&quot;Visualization of sdf composition bug&quot; /&gt;
 &lt;/a&gt;
 &lt;a href=&quot;#_&quot; class=&quot;lightbox .short-animate&quot; id=&quot;visualization-of-sdf-composition-bug&quot; title=&quot;Visualization of sdf composition bug&quot;&gt;
   &lt;img class=&quot;.long-animate&quot; src=&quot;/resources/project-march/programmer_art.jpg&quot; /&gt;
@@ -106,7 +106,7 @@ Wow.  Just wow.  These guys are making a game &lt;em&gt;that doesn’t use polyg
 
 
 &lt;a href=&quot;#visualization-of-3d-sdf-distances-in-unity&quot;&gt;
-  &lt;img src=&quot;/resources/project-march/unity_sdf_debug-thumb.jpg&quot; class=&quot;thumbnail thumbnail-med&quot; title=&quot;Visualization of 3D SDF distances in unity&quot; /&gt;
+  &lt;img src=&quot;/resources/project-march/unity_sdf_debug-thumb.jpg&quot; class=&quot;thumbnail&quot; title=&quot;Visualization of 3D SDF distances in unity&quot; /&gt;
 &lt;/a&gt;
 &lt;a href=&quot;#_&quot; class=&quot;lightbox .short-animate&quot; id=&quot;visualization-of-3d-sdf-distances-in-unity&quot; title=&quot;Visualization of 3D SDF distances in unity&quot;&gt;
   &lt;img class=&quot;.long-animate&quot; src=&quot;/resources/project-march/unity_sdf_debug.jpg&quot; /&gt;
@@ -129,7 +129,7 @@ Wow.  Just wow.  These guys are making a game &lt;em&gt;that doesn’t use polyg
 
 
 &lt;a href=&quot;#incorrect-refinement-of-quadtree-around-a-circle&quot;&gt;
-  &lt;img src=&quot;/resources/project-march/quadtree_to_the_max-thumb.jpg&quot; class=&quot;thumbnail thumbnail-med&quot; title=&quot;Incorrect refinement of quadtree around a circle&quot; /&gt;
+  &lt;img src=&quot;/resources/project-march/quadtree_to_the_max-thumb.jpg&quot; class=&quot;thumbnail&quot; title=&quot;Incorrect refinement of quadtree around a circle&quot; /&gt;
 &lt;/a&gt;
 &lt;a href=&quot;#_&quot; class=&quot;lightbox .short-animate&quot; id=&quot;incorrect-refinement-of-quadtree-around-a-circle&quot; title=&quot;Incorrect refinement of quadtree around a circle&quot;&gt;
   &lt;img class=&quot;.long-animate&quot; src=&quot;/resources/project-march/quadtree_to_the_max.jpg&quot; /&gt;
@@ -152,7 +152,7 @@ Wow.  Just wow.  These guys are making a game &lt;em&gt;that doesn’t use polyg
 
 
 &lt;a href=&quot;#visualization-of-quadtree-including-dead-branches&quot;&gt;
-  &lt;img src=&quot;/resources/project-march/mesmerizing-thumb.jpg&quot; class=&quot;thumbnail thumbnail-med&quot; title=&quot;Visualization of quadtree including dead branches&quot; /&gt;
+  &lt;img src=&quot;/resources/project-march/mesmerizing-thumb.jpg&quot; class=&quot;thumbnail&quot; title=&quot;Visualization of quadtree including dead branches&quot; /&gt;
 &lt;/a&gt;
 &lt;a href=&quot;#_&quot; class=&quot;lightbox .short-animate&quot; id=&quot;visualization-of-quadtree-including-dead-branches&quot; title=&quot;Visualization of quadtree including dead branches&quot;&gt;
   &lt;img class=&quot;.long-animate&quot; src=&quot;/resources/project-march/mesmerizing.jpg&quot; /&gt;
@@ -176,7 +176,7 @@ Wow.  Just wow.  These guys are making a game &lt;em&gt;that doesn’t use polyg
 
 
 &lt;a href=&quot;#visualization-of-sdf-distances&quot;&gt;
-  &lt;img src=&quot;/resources/project-march/distance_vis-thumb.jpg&quot; class=&quot;thumbnail thumbnail-med&quot; title=&quot;Visualization of sdf distances&quot; /&gt;
+  &lt;img src=&quot;/resources/project-march/distance_vis-thumb.jpg&quot; class=&quot;thumbnail&quot; title=&quot;Visualization of sdf distances&quot; /&gt;
 &lt;/a&gt;
 &lt;a href=&quot;#_&quot; class=&quot;lightbox .short-animate&quot; id=&quot;visualization-of-sdf-distances&quot; title=&quot;Visualization of sdf distances&quot;&gt;
   &lt;img class=&quot;.long-animate&quot; src=&quot;/resources/project-march/distance_vis.jpg&quot; /&gt;
