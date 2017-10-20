@@ -6,8 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>My Oodles of Unemployment</title>
-  <meta name="description" content="Hello World! I have been happily unemployed for some time now. Happily? Yes! As long as it doesn’t last forever, I’m quite happy getting a chance to work on ...">
+  <title>Falling Down the ~~Rabbit~~ Math Hole</title>
+  <meta name="description" content="Like most of my personal projects, I fell into this math hole with a few (not so) simple items on my agenda. They eventually looked something like this: Lear...">
 
   <link rel="stylesheet" href="/assets/css/bundle.main.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Indie+Flower">
@@ -18,7 +18,7 @@
 
   <script src="/vendor.js"></script>
   <script src="/bundle.js"></script>
-  <link rel="canonical" href="http://rubberguppy.com/my-oodles-of-unemployment/">
+  <link rel="canonical" href="http://rubberguppy.com/programming/signed%20distance%20fields/research/2017/10/20/falling-down-the-math-hole.html">
   <link rel="alternate" type="application/rss+xml" title="Rubber Guppy" href="/feed.xml">
 
   
@@ -37,48 +37,56 @@
           <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline"><p>My Oodles of Unemployment</p>
+    <h1 class="post-title" itemprop="name headline"><p>Falling Down the <del>Rabbit</del> Math Hole</p>
  </h1>
     <p class="post-meta">
-      <time datetime="2012-02-16T16:11:08+00:00" itemprop="datePublished">
+      <time datetime="2017-10-20T00:00:51+00:00" itemprop="datePublished">
         
-        Feb 16, 2012
+        Oct 20, 2017
       </time>
-      
-        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Jordan Hueckstaedt</span></span>
       </p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>Hello World!</p>
+    <p>Like most of my personal projects, I fell into this math hole with a few (not so) simple items on my agenda. They eventually looked something like this:</p>
 
-<p>I have been happily unemployed for some time now. Happily? Yes! As long as it doesn’t last forever, I’m quite happy getting a chance to work on some of my own projects. R&amp;R for the weary working programmer at heart. And now I think it’s about time I shared some of what I’ve been doing with my oodles of spare time.</p>
+<ul>
+  <li>Learn OpenGL.</li>
+  <li>Make a VR sculpting application.</li>
+  <li>Write this using only C++ and small helper libraries.  No big frameworks.</li>
+  <li>Implement a signed distance renderer.</li>
+</ul>
 
-<p>I started with tool making and later progressed to more tool making. I love making tools. I really do. I think I would be equally if not more happy working at a job making tools than rigging. In fact, I’m considering pursuing a job making tools over rigging. If that doesn’t pan out, then I’ll start transitioning from using my spare time making tools to rigging. And making rigging tools.
+<p>But I’m getting ahead of myself a bit. In the beginning, I discovered signed distance fields while doing research for a shader I was trying to write in Unreal Engine. I saw a bunch of cool examples, and wanted to dive right in and figure out how all this stuff worked! Unfortunately, all the examples I was looking at were written in GLSL. Learning a new complex subject and trying to translate that into Unreal’s shader system was more than I wanted to chew off. So, I opened up Unity for the first time, and started coding (that’s simpler, right?).</p>
+
+<p>As it turns out, this WAS simpler. After learning the basics of how modern game engines were organized in Unreal, picking up a little Unity was a breeze. Coming from python/c++ background, C# was very straight forward as well, especially with the great IDE integration with Visual Studio Code. I really enjoyed learning C#. I wish this language had more adoption in the fields I normally work in.</p>
+
+<p>To get started, I read a few signed distance field ray marching tutorials specifically for Unity. For more information, I inspected a number of shadertoy shaders. Then I dug in deeper, and got the whole thing to render in VR. My backwards approach to learning unity gave me a good laugh at the time. I started with learning the shader system, then how to integrate my shaders with C#/SteamVR, and only <em>at that point</em> did I learn how to spawn an object.</p>
+
+<div class="media-container" style="padding-bottom:calc(100% / 1.58)">
+    <iframe src="https://gfycat.com/ifr/MeekGlumKodiakbear" frameborder="0" scrolling="no" width="100%" height="100%" allowfullscreen=""></iframe>
+</div>
+
 <a class="anchor" id="excerpt-continue"></a>
-I’ve made plenty of rigging tools in the past. Tons. Sure, there’s only one up here, but that’s just because it takes so much time to release a script. This time around, I decided to do something new. Something exciting. Shiny even. You could even call it <em>animated</em>. I decided to work on tools for animation.</p>
 
-<p>It wasn’t hard to find inspiration to make a tool. My partner in crime, life, and love, Riannon Delanoy, is a brilliant crack animator. So I didn’t have to look far to find an excellent resource of complaints. This one in particular went something like this:</p>
+<p>Wow, this was a lot of fun! I slapped some physics on there because playing around in zero-g is pure joy in VR. Look at all those things zooming around. I think this demo looks really impressive. Package it up and ship it, right? No, there was one fatal flaw that prevented me from taking this any further: there was no headroom for improvement. My GTX 1080, which was close to the best video card on the market, could only make 10 objects before it started dropping frames. Barf-land here we come. And since ray marching renderers are a brute force approach, anti-aliasing the results would come at a very serious cost. You can already see aliasing problems in the video. Throwing balls around is fun, but if I wanted to write a sculpting application, I was going to need to make more than 10 cubes.</p>
 
-<div>
-  <b>Riannon:</b> <i>Ahhh! Why can't Maya just key what I have selected? I don't want to key everything!</i><br /> <b>Me:</b> <i>How would it know what you have selected? You can have the graph editor open at the same time as the channel box and have different things selected in both. That could get confusing fast.</i><br /> <b>Riannon:</b> <i>Ahh! I don't care! Maya just sucks!</i>
+<p>At this point, I (naively) decided that Unity wasn’t giving me much other than a glorified shell to write cg shaders in. I wasn’t sure how much the overhead of Unity itself, and the C# language was slowing things down. I didn’t think it was much, but I wanted to find out. I decided to ditch Unity and write my own engine from the ground up. As it turns out, Unity was doing a lot of work for me! Scheduling, garbage collection, polygons, oh my! But without writing it myself, I would have never known! A month or so later, I had almost the same demo up and running in my own application.</p>
+
+<div class="media-container-center">
+    <div class="aspect-ratio" style="margin-top: 112%;"></div>
+    <iframe src="https://gfycat.com/ifr/NarrowInexperiencedFrilledlizard" frameborder="0" scrolling="no" allowfullscreen=""></iframe>
+
 </div>
 
-<p>I consider this an excellent and well articulated complaint. My own complains usually end with the same sentiment. A few weeks earlier I also had this gem of a conversation:</p>
+<p>Subjectively, I felt like I did eek out a tiny bit more performance over Unity, but I didn’t do any hard benchmarks because it wasn’t a significant gain. It was still a great learning experience, and now I had my own application to use as a test bed for further work. Which I did with vigor! Here’s an early test I did, trying to ray casting through a voxel field before dropping to ray marching once the ray was close to something.</p>
 
-<div>
-  <b>Riannon:</b> <i>Why can't Maya leave my curves alone when I add a new key? I don't want a key in between these others to change the curve!</i><br /> <b>Me:</b> <i>Didn't Daniel mention there was a way to insert keys in Maya? (A quick google search later) Yeah, you just need to hold down the &#8220;i&#8221; key and middle click on a curve.</i><br /> <b>Riannon:</b> <i>Oh, right! Cool, thanks.</i><br /> <i>(A few minutes later)</i><br /> <b>Riannon:</b> <i>Oh my God that is so annoying! I hate it!</i>
+<div class="media-container-center">
+    <div class="aspect-ratio" style="margin-top: 108%;"></div>
+    <iframe src="https://gfycat.com/ifr/SentimentalGleefulFirecrest" frameborder="0" scrolling="no" allowfullscreen=""></iframe>
 </div>
 
-<p>So I may have exaggerated a little. Riannon isn’t quite so likely to fly off the handle about every little thing in Maya, but I wanted to make a point. I was a little annoyed when I first heard these complaints. After all, these things are just the way Maya works. There are ways around each of these problems. But the more I thought about it the more it bugged me. These are things every animator needs to do hundreds of times every single day. This is a common task. Common tasks in any program are the kind of task that should be simple, intuitive, and downright easy. There shouldn’t be any need to work around something as simple as this.</p>
-
-<p>Needing to hold down the “i” key and middle click to insert a key? Who’s brilliant idea was this? First of all, the “i” key is not near my left hand. Sure “i” for insert. I get it. But it’s not easy to reach for most right handed artists. That doesn’t even touch on the real elephant in the room though.</p>
-
-<p>When you boil it right down, all an animator is paid to do is make nice curves in a graph. The curves are their work. So when you add a new key between a few others and have the tangents flattened by default, you change that curve. If a curve is changed, you just undid some of that animators work. Why on earth would you do that? Now the animator has to go in and massage those tangents and the surrounding tangents into the way it was before. That’s a lot of wasted time when there’s already a way to leave their curves alone. Just insert the key. After all, if the animator wants their tangents changed it’s just a click away. Getting their original curves back is not.</p>
-
-<p>I let this stew in the back of my mind and continued working on other things. Then one day I ran into the getPanel command. The cool thing about the getPanel command is that you can find out what panel is under your cursor (getPanel -underPointer;). At this point, that familiar little lightbulb went off in the back of my head. If you could get what was under the user’s cursor, you could make commands context sensitive. You could do something like, determine if the graph editor was under your cursor. Now we were cooking!</p>
-
-<p>May I present to you the fruits of my labor! <a href="https://github.com/assumptionsoup/Guppy-Animation-Tools">Clever Keys.</a> The best way to set a key in Maya since 1964! The last way you’ll ever set a key in Maya if I get my wish (and no horrendous bug shows up). It addresses both of Riannons original complaints – though she didn’t know at the time that they would later become a single tool. It lets you key whatever attribute is selected intuitively. If you try to add a new key to a curve it will automatically insert it. It just works.</p>
+<p>There were still a few bugs I needed to work out! I love how visually intense bugs can get when writing renderers. One incorrect sign somewhere and suddenly, you’re seeing stars. I think I did get this approach working, but there weren’t any performance gains (though, there were a number of items that I now know where wrong with my methodology, so I may look at this again). I needed a radical change. Something completely different than ray marching. Luckily for me, that’s exactly what Media Molecule claimed to have done. I just needed to follow them further down this math hole… right?</p>
 
   </div>
 </article>
@@ -89,8 +97,8 @@ I’ve made plenty of rigging tools in the past. Tons. Sure, there’s only one 
   <div id="disqus_thread"></div>
   <script>
     var disqus_config = function () {
-      this.page.url = 'http://rubberguppy.com/my-oodles-of-unemployment/';
-      this.page.identifier = 'http://rubberguppy.com/my-oodles-of-unemployment/';
+      this.page.url = 'http://rubberguppy.com/programming/signed%20distance%20fields/research/2017/10/20/falling-down-the-math-hole.html';
+      this.page.identifier = 'http://rubberguppy.com/programming/signed%20distance%20fields/research/2017/10/20/falling-down-the-math-hole.html';
     };
 
     (function() {
